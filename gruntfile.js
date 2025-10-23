@@ -6,7 +6,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-terser');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-exorcise');
 
   grunt.initConfig({
     babel: {
@@ -100,17 +99,6 @@ module.exports = function(grunt) {
       },
     },
 
-    // Move source maps to a separate file
-    exorcise: {
-      bundle: {
-        options: {},
-        files: {
-          './dist/exceljs.js.map': ['./dist/exceljs.js'],
-          './dist/exceljs.bare.js.map': ['./dist/exceljs.bare.js'],
-        },
-      },
-    },
-
     copy: {
       dist: {
         files: [
@@ -135,6 +123,27 @@ module.exports = function(grunt) {
     },
   });
 
-  grunt.registerTask('build', ['babel:dist', 'browserify', 'terser', 'exorcise', 'copy']);
+  // Custom task to extract source maps
+  grunt.registerTask('extract-sourcemap', 'Extract inline source maps to separate files', function() {
+    const done = this.async();
+    const {execFile} = require('child_process');
+
+    execFile('node', ['./scripts/extract-sourcemap.js'], (error, stdout, stderr) => {
+      if (stdout) {
+        grunt.log.writeln(stdout);
+      }
+      if (stderr) {
+        grunt.log.error(stderr);
+      }
+      if (error) {
+        grunt.fail.fatal(`Source map extraction failed: ${error.message}`);
+        done(false);
+      } else {
+        done(true);
+      }
+    });
+  });
+
+  grunt.registerTask('build', ['babel:dist', 'browserify', 'terser', 'extract-sourcemap', 'copy']);
   grunt.registerTask('ug', ['terser']);
 };
