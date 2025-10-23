@@ -13,8 +13,13 @@
     "node": true
   },
   "rules": {
+    "arrow-body-style": ["off"],
     "arrow-parens": ["error", "as-needed"],
     "class-methods-use-this": ["off"],
+    "grouped-accessor-pairs": ["off"],
+    "import/extensions": ["off"],
+    "no-promise-executor-return": ["off"],
+    "prefer-arrow-callback": ["off"],
     "comma-dangle": ["error", {"arrays": "always-multiline", "objects": "always-multiline", "imports": "always-multiline", "exports": "always-multiline", "functions": "never"}],
     "default-case": ["off"],
     "func-names": ["off", "never"],

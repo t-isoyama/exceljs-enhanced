@@ -56,18 +56,12 @@
     "build": "grunt build",
     "install-build": "npm install && grunt build",
     "preversion": "npm run clean && npm run build && npm run test:version",
-    "postversion": "git push --no-verify && git push --tags --no-verify"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "postversion": "git push --no-verify && git push --tags --no-verify",
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.js": [
-      "prettier-eslint --write",
-      "eslint --format node_modules/eslint-friendly-formatter",
-      "git add"
+      "eslint --format node_modules/eslint-friendly-formatter"
     ]
   },
   "keywords": [
@@ -120,11 +114,11 @@
     "chai-xml": "^0.4.1",
     "core-js": "^3.46.0",
     "dirty-chai": "^2.0.1",
-    "eslint": "^6.5.1",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-config-prettier": "^6.12.0",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^10.0.0",
     "eslint-friendly-formatter": "^4.0.1",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-node": "^11.1.0",
     "axios": "^1.7.0",
     "express": "^4.16.4",
@@ -136,8 +130,8 @@
     "grunt-contrib-watch": "^1.1.0",
     "grunt-exorcise": "^2.1.1",
     "grunt-terser": "^2.0.0",
-    "husky": "^4.3.0",
-    "lint-staged": "^10.2.13",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0",
     "mocha": "^11.0.0",
     "prettier-eslint": "^11.0.0",
     "prettier-eslint-cli": "^5.0.0",
