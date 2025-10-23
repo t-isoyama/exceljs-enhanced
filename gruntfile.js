@@ -123,8 +123,8 @@ module.exports = function(grunt) {
 
     jasmine: {
       options: {
-        version: '3.8.0',
         noSandbox: true,
+        timeout: 30000,
       },
       dev: {
         src: ['./dist/exceljs.js'],
