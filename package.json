@@ -101,10 +101,10 @@
     "fast-csv": "^4.3.1",
     "jszip": "^3.10.1",
     "readable-stream": "^3.6.0",
-    "saxes": "^5.0.1",
+    "saxes": "^6.0.0",
     "tmp": "^0.2.0",
-    "unzipper": "^0.10.11",
-    "uuid": "^8.3.0"
+    "unzipper": "^0.12.3",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
