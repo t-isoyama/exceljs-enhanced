@@ -38,8 +38,8 @@ module.exports = function(grunt) {
             },
           ],
         ],
-        // Performance Phase 4-1: Exclude unzipper from browser builds (Node.js only optimization)
-        exclude: ['unzipper'],
+        // Performance Phase 4-1 & 4-2: Exclude Node.js-only libraries from browser builds
+        exclude: ['unzipper', 'archiver'],
         browserifyOptions: {
           // enable source map for browserify
           debug: true,
