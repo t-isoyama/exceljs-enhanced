@@ -5,11 +5,27 @@ const testUtils = require('../../utils/index');
 
 const ExcelJS = verquire('exceljs');
 
-const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
 const IMAGE_FILENAME = `${__dirname}/../data/image.png`;
 const fsReadFileAsync = promisify(fs.readFile);
 
 describe('WorkbookWriter', () => {
+  let TEST_XLSX_FILE_NAME;
+
+  beforeEach(() => {
+    TEST_XLSX_FILE_NAME = testUtils.getUniqueFilename('wb.test', 'xlsx');
+  });
+
+  afterEach(() => {
+    // Clean up test files
+    try {
+      if (fs.existsSync(TEST_XLSX_FILE_NAME)) {
+        fs.unlinkSync(TEST_XLSX_FILE_NAME);
+      }
+    } catch (e) {
+      // Ignore cleanup errors
+    }
+  });
+
   it('creates sheets with correct names', () => {
     const wb = new ExcelJS.stream.xlsx.WorkbookWriter();
     const ws1 = wb.addWorksheet('Hello, World!');

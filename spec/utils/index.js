@@ -103,6 +103,12 @@ module.exports = {
 
   checkTestBookReader: testWorkbookReader.checkBook,
 
+  getUniqueFilename(basename = 'wb.test', extension = 'xlsx') {
+    const timestamp = Date.now();
+    const random = Math.random().toString(36).substring(2, 9);
+    return `./spec/out/${basename}.${timestamp}.${random}.${extension}`;
+  },
+
   createSheetMock() {
     return {
       _keys: {},

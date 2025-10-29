@@ -4,11 +4,26 @@ const testutils = require('../utils/index');
 
 const ExcelJS = verquire('exceljs');
 
-const TEST_FILE_NAME = './spec/out/wb.test.xlsx';
-
 // need some architectural changes to make stream read work properly
 // because of: shared strings, sheet names, etc are not read in guaranteed order
 describe('WorkbookReader', () => {
+  let TEST_FILE_NAME;
+
+  beforeEach(() => {
+    TEST_FILE_NAME = testutils.getUniqueFilename('wb.test', 'xlsx');
+  });
+
+  afterEach(() => {
+    // Clean up test files
+    try {
+      if (fs.existsSync(TEST_FILE_NAME)) {
+        fs.unlinkSync(TEST_FILE_NAME);
+      }
+    } catch (e) {
+      // Ignore cleanup errors
+    }
+  });
+
   describe('Serialise', () => {
     it('xlsx file', function() {
       this.timeout(10000);
