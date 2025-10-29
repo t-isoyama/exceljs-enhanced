@@ -35,7 +35,5 @@ describe('Gold Book', () => {
       expect(ws.lastColumn).to.equal(ws.getColumn(2));
       expect(ws.lastRow).to.equal(ws.getRow(6));
     });
-
-    it('Styles', () => {});
   });
 });
