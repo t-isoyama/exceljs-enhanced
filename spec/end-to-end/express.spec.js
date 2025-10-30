@@ -1,4 +1,4 @@
-const {PassThrough} = require('readable-stream');
+const {PassThrough} = require('stream');
 const express = require('express');
 const axios = require('axios');
 const testutils = require('../utils/index');
