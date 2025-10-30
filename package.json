@@ -86,11 +86,8 @@
     "dayjs": "^1.11.18",
     "fast-csv": "^5.0.0",
     "jszip": "^3.10.1",
-    "readable-stream": "^3.6.2",
     "saxes": "^6.0.0",
-    "tmp": "^0.2.0",
-    "unzipper": "^0.12.3",
-    "uuid": "^8.3.2"
+    "unzipper": "^0.12.3"
   },
   "devDependencies": {
     "@types/chai": "^4.2.12",

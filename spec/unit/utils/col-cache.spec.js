@@ -3,7 +3,8 @@ const colCache = verquire('utils/col-cache');
 describe('colCache', () => {
   it('caches values', () => {
     expect(colCache.l2n('A')).to.equal(1);
-    expect(colCache._l2n.A).to.equal(1);
+    // Performance: _l2n is now a Map, use .get() instead of property access
+    expect(colCache._l2n.get('A')).to.equal(1);
     expect(colCache._n2l[1]).to.equal('A');
 
     // also, because of the fill heuristic A-Z will be there too
@@ -36,13 +37,15 @@ describe('colCache', () => {
       'Z',
     ];
     dic.forEach((letter, index) => {
-      expect(colCache._l2n[letter]).to.equal(index + 1);
+      // Performance: Use Map.get() for _l2n
+      expect(colCache._l2n.get(letter)).to.equal(index + 1);
       expect(colCache._n2l[index + 1]).to.equal(letter);
     });
 
     // next level
     expect(colCache.n2l(27)).to.equal('AA');
-    expect(colCache._l2n.AB).to.equal(28);
+    // Performance: Use Map.get() for _l2n
+    expect(colCache._l2n.get('AB')).to.equal(28);
     expect(colCache._n2l[28]).to.equal('AB');
   });
 
