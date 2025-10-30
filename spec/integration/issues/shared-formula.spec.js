@@ -12,13 +12,13 @@ describe('github issues', () => {
           .readFile('./spec/integration/data/fibonacci.xlsx')
           .then(() => {
             const ws = wb.getWorksheet('fib');
-            expect(ws.getCell('A4').value).to.deep.equal({
+            expect(ws.getCell('A4').value).toEqual({
               formula: 'A3+1',
               shareType: 'shared',
               ref: 'A4:A19',
               result: 4,
             });
-            expect(ws.getCell('A5').value).to.deep.equal(
+            expect(ws.getCell('A5').value).toEqual(
               {sharedFormula: 'A4', result: 5},
               explain
             );
@@ -30,8 +30,8 @@ describe('github issues', () => {
           .readFile('./spec/integration/data/fibonacci.xlsx')
           .then(() => {
             const ws = wb.getWorksheet('fib');
-            expect(ws.getCell('A4').type).to.equal(Enums.ValueType.Formula);
-            expect(ws.getCell('A5').type).to.equal(Enums.ValueType.Formula);
+            expect(ws.getCell('A4').type).toBe(Enums.ValueType.Formula);
+            expect(ws.getCell('A5').type).toBe(Enums.ValueType.Formula);
           });
       });
       it('copied cells should have the same fields', () => {
@@ -43,7 +43,7 @@ describe('github issues', () => {
             const ws = wb.getWorksheet('fib');
             const A4 = ws.getCell('A4');
             const A5 = ws.getCell('A5');
-            expect(Object.keys(A4).join()).to.equal(Object.keys(A5).join());
+            expect(Object.keys(A4).join()).toBe(Object.keys(A5).join());
           });
       });
     });

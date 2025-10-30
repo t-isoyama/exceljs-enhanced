@@ -8,15 +8,15 @@ describe('github issues', () => {
         .readFile('./spec/integration/data/test-issue-1575.xlsx')
         .then(() => {
           const ws = wb.getWorksheet('Sheet1');
-          expect(ws.getCell('A1').value).to.equal('A');
-          expect(ws.getCell('B1').value).to.equal('B');
-          expect(ws.getCell('C1').value).to.equal('C');
-          expect(ws.getCell('A2').value).to.equal('1.0');
-          expect(ws.getCell('B2').value).to.equal('2.0');
-          expect(ws.getCell('C2').value).to.equal('3.0');
-          expect(ws.getCell('A3').value).to.equal('4.0');
-          expect(ws.getCell('B3').value).to.equal('5.0');
-          expect(ws.getCell('C3').value).to.equal('6.0');
+          expect(ws.getCell('A1').value).toBe('A');
+          expect(ws.getCell('B1').value).toBe('B');
+          expect(ws.getCell('C1').value).toBe('C');
+          expect(ws.getCell('A2').value).toBe('1.0');
+          expect(ws.getCell('B2').value).toBe('2.0');
+          expect(ws.getCell('C2').value).toBe('3.0');
+          expect(ws.getCell('A3').value).toBe('4.0');
+          expect(ws.getCell('B3').value).toBe('5.0');
+          expect(ws.getCell('C3').value).toBe('6.0');
         });
     });
   });

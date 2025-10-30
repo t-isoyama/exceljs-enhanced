@@ -10,21 +10,21 @@ describe('Worksheet', () => {
         [2, 3],
         [3, 4],
       ]);
-      expect(ws.getCell('A1').value).to.deep.equal({
+      expect(ws.getCell('A1').value).toEqual({
         formula: 'ROW()+COLUMN()',
         shareType: 'shared',
         ref: 'A1:B2',
         result: 2,
       });
-      expect(ws.getCell('B1').value).to.deep.equal({
+      expect(ws.getCell('B1').value).toEqual({
         sharedFormula: 'A1',
         result: 3,
       });
-      expect(ws.getCell('A2').value).to.deep.equal({
+      expect(ws.getCell('A2').value).toEqual({
         sharedFormula: 'A1',
         result: 3,
       });
-      expect(ws.getCell('B2').value).to.deep.equal({
+      expect(ws.getCell('B2').value).toEqual({
         sharedFormula: 'A1',
         result: 4,
       });
@@ -40,30 +40,30 @@ describe('Worksheet', () => {
         [1, 2],
         [1, 2],
       ]);
-      expect(ws.getCell('A2').value).to.deep.equal({
+      expect(ws.getCell('A2').value).toEqual({
         formula: 'A1',
         shareType: 'shared',
         ref: 'A2:B3',
         result: 1,
       });
 
-      expect(ws.getCell('B2').value).to.deep.equal({
+      expect(ws.getCell('B2').value).toEqual({
         sharedFormula: 'A2',
         result: 2,
       });
-      expect(ws.getCell('B2').formula).to.equal('B1');
+      expect(ws.getCell('B2').formula).toBe('B1');
 
-      expect(ws.getCell('A3').value).to.deep.equal({
+      expect(ws.getCell('A3').value).toEqual({
         sharedFormula: 'A2',
         result: 1,
       });
-      expect(ws.getCell('A3').formula).to.equal('A2');
+      expect(ws.getCell('A3').formula).toBe('A2');
 
-      expect(ws.getCell('B3').value).to.deep.equal({
+      expect(ws.getCell('B3').value).toEqual({
         sharedFormula: 'A2',
         result: 2,
       });
-      expect(ws.getCell('B3').formula).to.equal('B2');
+      expect(ws.getCell('B3').formula).toBe('B2');
     });
 
     it('Fills formula down using 1D array values', () => {
@@ -71,21 +71,21 @@ describe('Worksheet', () => {
       const ws = wb.addWorksheet();
 
       ws.fillFormula('A1:A4', 'ROW()+COLUMN()', [2, 3, 4, 5]);
-      expect(ws.getCell('A1').value).to.deep.equal({
+      expect(ws.getCell('A1').value).toEqual({
         formula: 'ROW()+COLUMN()',
         shareType: 'shared',
         ref: 'A1:A4',
         result: 2,
       });
-      expect(ws.getCell('A2').value).to.deep.equal({
+      expect(ws.getCell('A2').value).toEqual({
         sharedFormula: 'A1',
         result: 3,
       });
-      expect(ws.getCell('A3').value).to.deep.equal({
+      expect(ws.getCell('A3').value).toEqual({
         sharedFormula: 'A1',
         result: 4,
       });
-      expect(ws.getCell('A4').value).to.deep.equal({
+      expect(ws.getCell('A4').value).toEqual({
         sharedFormula: 'A1',
         result: 5,
       });
@@ -96,21 +96,21 @@ describe('Worksheet', () => {
       const ws = wb.addWorksheet();
 
       ws.fillFormula('A1:D1', 'ROW()+COLUMN()', [2, 3, 4, 5]);
-      expect(ws.getCell('A1').value).to.deep.equal({
+      expect(ws.getCell('A1').value).toEqual({
         formula: 'ROW()+COLUMN()',
         shareType: 'shared',
         ref: 'A1:D1',
         result: 2,
       });
-      expect(ws.getCell('B1').value).to.deep.equal({
+      expect(ws.getCell('B1').value).toEqual({
         sharedFormula: 'A1',
         result: 3,
       });
-      expect(ws.getCell('C1').value).to.deep.equal({
+      expect(ws.getCell('C1').value).toEqual({
         sharedFormula: 'A1',
         result: 4,
       });
-      expect(ws.getCell('D1').value).to.deep.equal({
+      expect(ws.getCell('D1').value).toEqual({
         sharedFormula: 'A1',
         result: 5,
       });
@@ -121,21 +121,21 @@ describe('Worksheet', () => {
       const ws = wb.addWorksheet();
 
       ws.fillFormula('A1:B2', 'ROW()+COLUMN()', [2, 3, 3, 4]);
-      expect(ws.getCell('A1').value).to.deep.equal({
+      expect(ws.getCell('A1').value).toEqual({
         formula: 'ROW()+COLUMN()',
         shareType: 'shared',
         ref: 'A1:B2',
         result: 2,
       });
-      expect(ws.getCell('B1').value).to.deep.equal({
+      expect(ws.getCell('B1').value).toEqual({
         sharedFormula: 'A1',
         result: 3,
       });
-      expect(ws.getCell('A2').value).to.deep.equal({
+      expect(ws.getCell('A2').value).toEqual({
         sharedFormula: 'A1',
         result: 3,
       });
-      expect(ws.getCell('B2').value).to.deep.equal({
+      expect(ws.getCell('B2').value).toEqual({
         sharedFormula: 'A1',
         result: 4,
       });
@@ -146,21 +146,21 @@ describe('Worksheet', () => {
       const ws = wb.addWorksheet();
 
       ws.fillFormula('A1:B2', 'ROW()+COLUMN()', (r, c) => r + c);
-      expect(ws.getCell('A1').value).to.deep.equal({
+      expect(ws.getCell('A1').value).toEqual({
         formula: 'ROW()+COLUMN()',
         shareType: 'shared',
         ref: 'A1:B2',
         result: 2,
       });
-      expect(ws.getCell('B1').value).to.deep.equal({
+      expect(ws.getCell('B1').value).toEqual({
         sharedFormula: 'A1',
         result: 3,
       });
-      expect(ws.getCell('A2').value).to.deep.equal({
+      expect(ws.getCell('A2').value).toEqual({
         sharedFormula: 'A1',
         result: 3,
       });
-      expect(ws.getCell('B2').value).to.deep.equal({
+      expect(ws.getCell('B2').value).toEqual({
         sharedFormula: 'A1',
         result: 4,
       });

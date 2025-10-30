@@ -21,12 +21,12 @@ describe('pr related issues', () => {
         })
         .then(wb2 => {
           const ws2 = wb2.getWorksheet('foo');
-          expect(ws2.getCell('A1').value).to.equal(' leading');
-          expect(ws2.getCell('A1').note).to.equal(' leading');
-          expect(ws2.getCell('B1').value).to.equal('trailing ');
-          expect(ws2.getCell('B1').note).to.equal('trailing ');
-          expect(ws2.getCell('C1').value).to.equal(' both ');
-          expect(ws2.getCell('C1').note).to.equal(' both ');
+          expect(ws2.getCell('A1').value).toBe(' leading');
+          expect(ws2.getCell('A1').note).toBe(' leading');
+          expect(ws2.getCell('B1').value).toBe('trailing ');
+          expect(ws2.getCell('B1').note).toBe('trailing ');
+          expect(ws2.getCell('C1').value).toBe(' both ');
+          expect(ws2.getCell('C1').note).toBe(' both ');
         });
     });
 
@@ -45,10 +45,10 @@ describe('pr related issues', () => {
         })
         .then(wb2 => {
           const ws2 = wb2.getWorksheet('foo');
-          expect(ws2.getCell('A1').value).to.equal('Hello,\nWorld!');
-          expect(ws2.getCell('A1').note).to.equal('Later,\nAlligator!');
-          expect(ws2.getCell('B1').value).to.equal(' Hello, \n World! ');
-          expect(ws2.getCell('B1').note).to.equal(' Later, \n Alligator! ');
+          expect(ws2.getCell('A1').value).toBe('Hello,\nWorld!');
+          expect(ws2.getCell('A1').note).toBe('Later,\nAlligator!');
+          expect(ws2.getCell('B1').value).toBe(' Hello, \n World! ');
+          expect(ws2.getCell('B1').note).toBe(' Later, \n Alligator! ');
         });
     });
   });

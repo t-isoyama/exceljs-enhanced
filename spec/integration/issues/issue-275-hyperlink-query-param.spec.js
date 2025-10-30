@@ -29,7 +29,7 @@ describe('github issues', () => {
       })
       .then(wb2 => {
         const ws2 = wb2.getWorksheet('Sheet1');
-        expect(ws2.getCell('A1').value).to.deep.equal(hyperlink);
+        expect(ws2.getCell('A1').value).toEqual(hyperlink);
       });
   });
 });

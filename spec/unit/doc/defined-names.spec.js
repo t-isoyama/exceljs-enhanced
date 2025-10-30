@@ -5,17 +5,17 @@ describe('DefinedNames', () => {
     const dn = new DefinedNames();
 
     dn.add('blort!A1', 'foo');
-    expect(dn.getNames('blort!A1')).to.deep.equal(['foo']);
-    expect(dn.getNames('blort!$A$1')).to.deep.equal(['foo']);
+    expect(dn.getNames('blort!A1')).toEqual(['foo']);
+    expect(dn.getNames('blort!$A$1')).toEqual(['foo']);
 
     dn.add('blort!$B$4', 'bar');
-    expect(dn.getNames('blort!B4')).to.deep.equal(['bar']);
-    expect(dn.getNames('blort!$B$4')).to.deep.equal(['bar']);
+    expect(dn.getNames('blort!B4')).toEqual(['bar']);
+    expect(dn.getNames('blort!$B$4')).toEqual(['bar']);
 
     dn.add('\'blo rt\'!$B$4', 'bar');
-    expect(dn.getNames('\'blo rt\'!$B$4')).to.deep.equal(['bar']);
+    expect(dn.getNames('\'blo rt\'!$B$4')).toEqual(['bar']);
     dn.add('\'blo ,!rt\'!$B$4', 'bar');
-    expect(dn.getNames('\'blo ,!rt\'!$B$4')).to.deep.equal(['bar']);
+    expect(dn.getNames('\'blo ,!rt\'!$B$4')).toEqual(['bar']);
   });
 
   it('removes names for cells', () => {
@@ -25,7 +25,7 @@ describe('DefinedNames', () => {
     dn.add('blort!A1', 'bar');
     dn.remove('blort!A1', 'foo');
 
-    expect(dn.getNames('blort!A1')).to.deep.equal(['bar']);
+    expect(dn.getNames('blort!A1')).toEqual(['bar']);
   });
 
   // get ranges example
@@ -47,19 +47,19 @@ describe('DefinedNames', () => {
 
     dn.add('other!A1', 'single');
 
-    expect(dn.getRanges('vertical')).to.deep.equal({
+    expect(dn.getRanges('vertical')).toEqual({
       name: 'vertical',
       ranges: ['blort!$A$1:$A$3'],
     });
-    expect(dn.getRanges('horizontal')).to.deep.equal({
+    expect(dn.getRanges('horizontal')).toEqual({
       name: 'horizontal',
       ranges: ['blort!$C$1:$E$1'],
     });
-    expect(dn.getRanges('square')).to.deep.equal({
+    expect(dn.getRanges('square')).toEqual({
       name: 'square',
       ranges: ['blort!$C$3:$D$4'],
     });
-    expect(dn.getRanges('single')).to.deep.equal({
+    expect(dn.getRanges('single')).toEqual({
       name: 'single',
       ranges: ['other!$A$1'],
     });
@@ -95,31 +95,31 @@ describe('DefinedNames', () => {
     dn.spliceRows('single', 2, 2, 1);
     dn.spliceColumns('single', 2, 2, 1);
 
-    expect(dn.getRanges('vertical')).to.deep.equal({
+    expect(dn.getRanges('vertical')).toEqual({
       name: 'vertical',
       ranges: ['vertical!$A$1', 'vertical!$A$3'],
     });
-    expect(dn.getRanges('horizontal')).to.deep.equal({
+    expect(dn.getRanges('horizontal')).toEqual({
       name: 'horizontal',
       ranges: ['horizontal!$A$1', 'horizontal!$C$1'],
     });
-    expect(dn.getRanges('square')).to.deep.equal({
+    expect(dn.getRanges('square')).toEqual({
       name: 'square',
       ranges: ['square!$A$1', 'square!$C$1', 'square!$A$3', 'square!$C$3'],
     });
-    expect(dn.getRanges('singleA1')).to.deep.equal({
+    expect(dn.getRanges('singleA1')).toEqual({
       name: 'singleA1',
       ranges: ['single!$A$1'],
     });
-    expect(dn.getRanges('singleD1')).to.deep.equal({
+    expect(dn.getRanges('singleD1')).toEqual({
       name: 'singleD1',
       ranges: ['single!$C$1'],
     });
-    expect(dn.getRanges('singleA4')).to.deep.equal({
+    expect(dn.getRanges('singleA4')).toEqual({
       name: 'singleA4',
       ranges: ['single!$A$3'],
     });
-    expect(dn.getRanges('singleD4')).to.deep.equal({
+    expect(dn.getRanges('singleD4')).toEqual({
       name: 'singleD4',
       ranges: ['single!$C$3'],
     });
@@ -132,7 +132,7 @@ describe('DefinedNames', () => {
     dn.add('blort!A1', 'bar');
     dn.remove('blort!A1', 'foo');
 
-    expect(dn.getNames('blort!A1')).to.deep.equal(['bar']);
+    expect(dn.getNames('blort!A1')).toEqual(['bar']);
   });
 
   it('skips values with invalid range', () => {
@@ -144,7 +144,7 @@ describe('DefinedNames', () => {
       {name: 'range', ranges: ['Sheet3!$A$2:$F$2228']},
     ];
 
-    expect(dn.model).to.deep.equal([
+    expect(dn.model).toEqual([
       {name: 'single', ranges: ['Sheet3!$A$1']},
       {name: 'range', ranges: ['Sheet3!$A$2:$F$2228']},
     ]);

@@ -5,7 +5,7 @@
     "sourceMap": true,
     "types": [
       "node",
-      "mocha"
+      "vitest/globals"
     ]
   },
   "exclude": [

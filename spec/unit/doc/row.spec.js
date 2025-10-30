@@ -8,25 +8,25 @@ describe('Row', () => {
     sheet.addColumn(1, {key: 'name'});
 
     const row1 = sheet.getRow(1);
-    expect(row1.number).to.equal(1);
-    expect(row1.hasValues).to.not.be.ok();
+    expect(row1.number).toBe(1);
+    expect(row1.hasValues).not.toBeTruthy();
 
     const a1 = row1.getCell(1);
-    expect(a1.address).to.equal('A1');
-    expect(a1.type).to.equal(Enums.ValueType.Null);
-    expect(row1.hasValues).to.not.be.ok();
+    expect(a1.address).toBe('A1');
+    expect(a1.type).toBe(Enums.ValueType.Null);
+    expect(row1.hasValues).not.toBeTruthy();
 
-    expect(row1.getCell('A')).to.equal(a1);
-    expect(row1.getCell('name')).to.equal(a1);
+    expect(row1.getCell('A')).toBe(a1);
+    expect(row1.getCell('name')).toBe(a1);
 
     a1.value = 5;
-    expect(a1.type).to.equal(Enums.ValueType.Number);
-    expect(row1.hasValues).to.be.ok();
+    expect(a1.type).toBe(Enums.ValueType.Number);
+    expect(row1.hasValues).toBeTruthy();
 
     const b1 = row1.getCell(2);
-    expect(b1.address).to.equal('B1');
-    expect(b1.type).to.equal(Enums.ValueType.Null);
-    expect(a1.type).to.equal(Enums.ValueType.Number);
+    expect(b1.address).toBe('B1');
+    expect(b1.type).toBe(Enums.ValueType.Null);
+    expect(a1.type).toBe(Enums.ValueType.Number);
 
     b1.value = 'Hello, World!';
     const d1 = row1.getCell(4);
@@ -42,28 +42,28 @@ describe('Row', () => {
       ,
       {hyperlink: 'http://www.hyperlink.com', text: 'www.hyperlink.com'},
     ];
-    expect(row1.values).to.deep.equal(values);
-    expect(row1.dimensions).to.deep.equal({min: 1, max: 4});
+    expect(row1.values).toEqual(values);
+    expect(row1.dimensions).toEqual({min: 1, max: 4});
 
     let count = 0;
     row1.eachCell((cell, colNumber) => {
-      expect(cell.type).to.not.equal(Enums.ValueType.Null);
+      expect(cell.type).not.toBe(Enums.ValueType.Null);
       switch (cell.type) {
         case Enums.ValueType.Hyperlink:
-          expect(cell.value).to.deep.equal(values[colNumber]);
+          expect(cell.value).toEqual(values[colNumber]);
           break;
         default:
-          expect(cell.value).to.equal(values[colNumber]);
+          expect(cell.value).toBe(values[colNumber]);
           break;
       }
       count++;
     });
 
     // eachCell should just cover non-null cells
-    expect(count).to.equal(3);
+    expect(count).toBe(3);
 
     const row2 = sheet.getRow(2);
-    expect(row2.dimensions).to.be.null();
+    expect(row2.dimensions).toBeNull();
   });
 
   it('stores values by whole row', () => {
@@ -78,10 +78,10 @@ describe('Row', () => {
 
     // set values by contiguous array
     row1.values = [5, 'Hello, World!', null];
-    expect(row1.getCell(1).value).to.equal(5);
-    expect(row1.getCell(2).value).to.equal('Hello, World!');
-    expect(row1.getCell(3).value).to.be.null();
-    expect(row1.values).to.deep.equal([, 5, 'Hello, World!']);
+    expect(row1.getCell(1).value).toBe(5);
+    expect(row1.getCell(2).value).toBe('Hello, World!');
+    expect(row1.getCell(3).value).toBeNull();
+    expect(row1.values).toEqual([, 5, 'Hello, World!']);
 
     // set values by sparse array
     const values = [];
@@ -89,11 +89,11 @@ describe('Row', () => {
     values[3] = 'Not Null!';
     values[5] = now;
     row1.values = values;
-    expect(row1.getCell(1).value).to.equal(7);
-    expect(row1.getCell(2).value).to.be.null();
-    expect(row1.getCell(3).value).to.equal('Not Null!');
-    expect(row1.getCell(5).type).to.equal(Enums.ValueType.Date);
-    expect(row1.values).to.deep.equal([, 7, , 'Not Null!', , now]);
+    expect(row1.getCell(1).value).toBe(7);
+    expect(row1.getCell(2).value).toBeNull();
+    expect(row1.getCell(3).value).toBe('Not Null!');
+    expect(row1.getCell(5).type).toBe(Enums.ValueType.Date);
+    expect(row1.values).toEqual([, 7, , 'Not Null!', , now]);
 
     // set values by object
     row1.values = {
@@ -101,11 +101,11 @@ describe('Row', () => {
       name: 'Dobbie',
       dob: now,
     };
-    expect(row1.getCell(1).value).to.equal(9);
-    expect(row1.getCell(2).value).to.equal('Dobbie');
-    expect(row1.getCell(3).type).to.equal(Enums.ValueType.Date);
-    expect(row1.getCell(5).value).to.be.null();
-    expect(row1.values).to.deep.equal([, 9, 'Dobbie', now]);
+    expect(row1.getCell(1).value).toBe(9);
+    expect(row1.getCell(2).value).toBe('Dobbie');
+    expect(row1.getCell(3).type).toBe(Enums.ValueType.Date);
+    expect(row1.getCell(5).value).toBeNull();
+    expect(row1.values).toEqual([, 9, 'Dobbie', now]);
   });
 
   describe('Splice', () => {
@@ -121,15 +121,15 @@ describe('Row', () => {
       row.getCell(13).value = 13;
 
       row.splice(3, 3);
-      expect(row.getCell(2).value).to.equal(2);
-      expect(row.getCell(2).type).to.equal(Enums.ValueType.Number);
-      expect(row.getCell(2).address).to.equal('B1');
-      expect(row.getCell(4).value).to.equal(7);
-      expect(row.getCell(4).type).to.equal(Enums.ValueType.Number);
-      expect(row.getCell(4).address).to.equal('D1');
-      expect(row.getCell(8).value).to.equal('eleven');
-      expect(row.getCell(8).type).to.equal(Enums.ValueType.String);
-      expect(row.getCell(8).address).to.equal('H1');
+      expect(row.getCell(2).value).toBe(2);
+      expect(row.getCell(2).type).toBe(Enums.ValueType.Number);
+      expect(row.getCell(2).address).toBe('B1');
+      expect(row.getCell(4).value).toBe(7);
+      expect(row.getCell(4).type).toBe(Enums.ValueType.Number);
+      expect(row.getCell(4).address).toBe('D1');
+      expect(row.getCell(8).value).toBe('eleven');
+      expect(row.getCell(8).type).toBe(Enums.ValueType.String);
+      expect(row.getCell(8).address).toBe('H1');
     });
 
     it('remove to end', () => {
@@ -143,12 +143,12 @@ describe('Row', () => {
       row.getCell(5).value = 5;
 
       row.splice(4, 2);
-      expect(row.getCell(1).value).to.equal(1);
-      expect(row.getCell(2).value).to.equal(2);
-      expect(row.getCell(3).value).to.equal(3);
-      expect(row.getCell(4).value).to.be.null();
-      expect(row.getCell(5).value).to.be.null();
-      expect(row.getCell(6).value).to.be.null();
+      expect(row.getCell(1).value).toBe(1);
+      expect(row.getCell(2).value).toBe(2);
+      expect(row.getCell(3).value).toBe(3);
+      expect(row.getCell(4).value).toBeNull();
+      expect(row.getCell(5).value).toBeNull();
+      expect(row.getCell(6).value).toBeNull();
     });
 
     it('remove almost to end', () => {
@@ -163,12 +163,12 @@ describe('Row', () => {
       row.getCell(6).value = 6;
 
       row.splice(4, 2);
-      expect(row.getCell(1).value).to.equal(1);
-      expect(row.getCell(2).value).to.equal(2);
-      expect(row.getCell(3).value).to.equal(3);
-      expect(row.getCell(4).value).to.equal(6);
-      expect(row.getCell(5).value).to.be.null();
-      expect(row.getCell(6).value).to.be.null();
+      expect(row.getCell(1).value).toBe(1);
+      expect(row.getCell(2).value).toBe(2);
+      expect(row.getCell(3).value).toBe(3);
+      expect(row.getCell(4).value).toBe(6);
+      expect(row.getCell(5).value).toBeNull();
+      expect(row.getCell(6).value).toBeNull();
     });
 
     it('remove past end', () => {
@@ -183,14 +183,14 @@ describe('Row', () => {
       row.getCell(6).value = 6;
 
       row.splice(4, 4);
-      expect(row.getCell(1).value).to.equal(1);
-      expect(row.getCell(2).value).to.equal(2);
-      expect(row.getCell(3).value).to.equal(3);
-      expect(row.getCell(4).value).to.be.null();
-      expect(row.getCell(5).value).to.be.null();
-      expect(row.getCell(6).value).to.be.null();
-      expect(row.getCell(7).value).to.be.null();
-      expect(row.getCell(8).value).to.be.null();
+      expect(row.getCell(1).value).toBe(1);
+      expect(row.getCell(2).value).toBe(2);
+      expect(row.getCell(3).value).toBe(3);
+      expect(row.getCell(4).value).toBeNull();
+      expect(row.getCell(5).value).toBeNull();
+      expect(row.getCell(6).value).toBeNull();
+      expect(row.getCell(7).value).toBeNull();
+      expect(row.getCell(8).value).toBeNull();
     });
 
     it('remove and insert fewer', () => {
@@ -198,7 +198,7 @@ describe('Row', () => {
       const row = sheet.getRow(1);
       row.values = [1, 2, 3, 4, 5, 6, 7, 8];
       row.splice(4, 3, 'four', 'five');
-      expect(row.values).to.deep.equal([, 1, 2, 3, 'four', 'five', 7, 8]);
+      expect(row.values).toEqual([, 1, 2, 3, 'four', 'five', 7, 8]);
     });
 
     it('remove and insert replacements', () => {
@@ -206,7 +206,7 @@ describe('Row', () => {
       const row = sheet.getRow(1);
       row.values = [1, 2, 3, 4, 5, 6, 7, 8];
       row.splice(4, 3, 'four', 'five', 'six');
-      expect(row.values).to.deep.equal([
+      expect(row.values).toEqual([
         ,
         1,
         2,
@@ -224,7 +224,7 @@ describe('Row', () => {
       const row = sheet.getRow(1);
       row.values = [1, 2, 3, 4, 5, 6, 7, 8];
       row.splice(4, 3, 'four', 'five', 'six', 'six and a half');
-      expect(row.values).to.deep.equal([
+      expect(row.values).toEqual([
         ,
         1,
         2,
@@ -248,16 +248,16 @@ describe('Row', () => {
     row1.getCell(4).value = 4;
     row1.getCell(6).value = 6;
     row1.eachCell((cell, colNumber) => {
-      expect(colNumber).to.not.equal(3);
-      expect(colNumber).to.not.equal(5);
-      expect(cell.value).to.equal(colNumber);
+      expect(colNumber).not.toBe(3);
+      expect(colNumber).not.toBe(5);
+      expect(cell.value).toBe(colNumber);
     });
 
     let count = 1;
     row1.eachCell({includeEmpty: true}, (cell, colNumber) => {
-      expect(colNumber).to.equal(count++);
+      expect(colNumber).toBe(count++);
     });
-    expect(count).to.equal(7);
+    expect(count).toBe(7);
   });
 
   it('builds a model', () => {
@@ -272,7 +272,7 @@ describe('Row', () => {
     row1.getCell(5).value = null;
     row1.height = 50;
 
-    expect(row1.model).to.deep.equal({
+    expect(row1.model).toEqual({
       cells: [
         {address: 'A1', type: Enums.ValueType.Number, value: 5, style: {}},
         {
@@ -301,12 +301,12 @@ describe('Row', () => {
     });
 
     const row2 = sheet.getRow(2);
-    expect(row2.model).to.be.null();
+    expect(row2.model).toBeNull();
 
     const row3 = sheet.getRow(3);
     row3.getCell(1).value = 5;
     row3.outlineLevel = 1;
-    expect(row3.model).to.deep.equal({
+    expect(row3.model).toEqual({
       cells: [
         {address: 'A3', type: Enums.ValueType.Number, value: 5, style: {}},
       ],
@@ -341,25 +341,25 @@ describe('Row', () => {
       height: 32.5,
     };
 
-    expect(row1.dimensions).to.deep.equal({min: 1, max: 4});
-    expect(row1.values).to.deep.equal([
+    expect(row1.dimensions).toEqual({min: 1, max: 4});
+    expect(row1.values).toEqual([
       ,
       5,
       'Hello, World!',
       ,
       {hyperlink: 'http://www.hyperlink.com', text: 'www.hyperlink.com'},
     ]);
-    expect(row1.getCell(1).type).to.equal(Enums.ValueType.Number);
-    expect(row1.getCell(1).value).to.equal(5);
-    expect(row1.getCell(2).type).to.equal(Enums.ValueType.String);
-    expect(row1.getCell(2).value).to.equal('Hello, World!');
-    expect(row1.getCell(4).type).to.equal(Enums.ValueType.Hyperlink);
-    expect(row1.getCell(4).value).to.deep.equal({
+    expect(row1.getCell(1).type).toBe(Enums.ValueType.Number);
+    expect(row1.getCell(1).value).toBe(5);
+    expect(row1.getCell(2).type).toBe(Enums.ValueType.String);
+    expect(row1.getCell(2).value).toBe('Hello, World!');
+    expect(row1.getCell(4).type).toBe(Enums.ValueType.Hyperlink);
+    expect(row1.getCell(4).value).toEqual({
       hyperlink: 'http://www.hyperlink.com',
       text: 'www.hyperlink.com',
     });
-    expect(row1.getCell(5).type).to.equal(Enums.ValueType.Null);
-    expect(row1.height - 32.5).to.be.below(0.00000001);
+    expect(row1.getCell(5).type).toBe(Enums.ValueType.Null);
+    expect(row1.height - 32.5).toBeLessThan(0.00000001);
   });
 
   it('counts cells', () => {
@@ -371,7 +371,7 @@ describe('Row', () => {
     row1.getCell(4).value = 'four';
     row1.getCell(5).value = 'five';
 
-    expect(row1.cellCount).to.equal(5);
-    expect(row1.actualCellCount).to.equal(4);
+    expect(row1.cellCount).toBe(5);
+    expect(row1.actualCellCount).toBe(4);
   });
 });

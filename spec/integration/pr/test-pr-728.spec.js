@@ -8,7 +8,7 @@ describe('github issues', () => {
       .then(() => {
         const expected = {1: 'visible', 2: 'hidden', 3: 'visible'};
         wb.eachSheet((ws, sheetId) => {
-          expect(ws.state).to.equal(expected[sheetId]);
+          expect(ws.state).toBe(expected[sheetId]);
         });
       });
   });

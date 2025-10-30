@@ -33,7 +33,7 @@ describe('StylesXform', () => {
       const xmlStream = new XmlStream();
       stylesXform.render(xmlStream);
 
-      expect(xmlStream.xml).xml.to.equal(expectedXml);
+      expect(xmlStream.xml).toEqualXml(expectedXml);
     });
   });
 });

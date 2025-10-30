@@ -19,7 +19,7 @@ describe('Worksheet', () => {
       row = ws.getRow(2);
       row.addPageBreak();
 
-      expect(ws.rowBreaks.length).to.equal(2);
+      expect(ws.rowBreaks.length).toBe(2);
     });
   });
 });

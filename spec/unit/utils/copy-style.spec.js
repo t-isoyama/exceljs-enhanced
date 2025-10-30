@@ -16,24 +16,24 @@ const style2 = {
 describe('copyStyle', () => {
   it('should copy a style deeply', () => {
     const copied = copyStyle(style1);
-    expect(copied).to.deep.equal(style1);
-    expect(copied.font).to.not.equal(style1.font);
-    expect(copied.alignment).to.not.equal(style1.alignment);
-    expect(copied.border).to.not.equal(style1.border);
-    expect(copied.fill).to.not.equal(style1.fill);
+    expect(copied).toEqual(style1);
+    expect(copied.font).not.toBe(style1.font);
+    expect(copied.alignment).not.toBe(style1.alignment);
+    expect(copied.border).not.toBe(style1.border);
+    expect(copied.fill).not.toBe(style1.fill);
 
-    expect(copyStyle({})).to.deep.equal({});
+    expect(copyStyle({})).toEqual({});
   });
 
   it('should copy fill.stops deeply', () => {
     const copied = copyStyle(style2);
-    expect(copied.fill.stops).to.deep.equal(style2.fill.stops);
-    expect(copied.fill.stops).to.not.equal(style2.fill.stops);
-    expect(copied.fill.stops[0]).to.not.equal(style2.fill.stops[0]);
+    expect(copied.fill.stops).toEqual(style2.fill.stops);
+    expect(copied.fill.stops).not.toBe(style2.fill.stops);
+    expect(copied.fill.stops[0]).not.toBe(style2.fill.stops[0]);
   });
 
   it('should return the argument if a falsy value passed', () => {
-    expect(copyStyle(null)).to.equal(null);
-    expect(copyStyle(undefined)).to.equal(undefined);
+    expect(copyStyle(null)).toBe(null);
+    expect(copyStyle(undefined)).toBe(undefined);
   });
 });

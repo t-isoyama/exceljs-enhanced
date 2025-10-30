@@ -12,7 +12,7 @@ describe('github issues', () => {
       locked: true,
     };
 
-    expect(sheet.protect).to.exist();
+    expect(sheet.protect).toBeDefined()();
 
     sheet.protect('password', {
       spinCount: 1,
@@ -25,6 +25,6 @@ describe('github issues', () => {
     await checkBook.xlsx.readFile('./test.xlsx');
 
     const checkSheet = checkBook.getWorksheet('data');
-    expect(checkSheet.sheetProtection.spinCount).to.equal(1);
+    expect(checkSheet.sheetProtection.spinCount).toBe(1);
   });
 });

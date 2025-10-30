@@ -6,7 +6,7 @@ describe('github issues', () => {
       const wb = new ExcelJS.Workbook();
       return wb.xlsx.readFile('./spec/integration/data/1904.xlsx').then(() => {
         const ws = wb.getWorksheet('Sheet1');
-        expect(ws.lastColumn).to.equal(ws.getColumn(2));
+        expect(ws.lastColumn).toBe(ws.getColumn(2));
       });
     });
   });

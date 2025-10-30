@@ -13,8 +13,8 @@ describe('StreamBuf', () => {
     const stream = new StreamBuf();
     stream.write('Hello, World!');
     const chunk = stream.read();
-    expect(chunk instanceof Buffer).to.be.ok();
-    expect(chunk.toString('UTF8')).to.equal('Hello, World!');
+    expect(chunk instanceof Buffer).toBeTruthy();
+    expect(chunk.toString('UTF8')).toBe('Hello, World!');
   });
 
   it('writes StringBuf chunks', () => {
@@ -23,8 +23,8 @@ describe('StreamBuf', () => {
     strBuf.addText('Hello, World!');
     stream.write(strBuf);
     const chunk = stream.read();
-    expect(chunk instanceof Buffer).to.be.ok();
-    expect(chunk.toString('UTF8')).to.equal('Hello, World!');
+    expect(chunk instanceof Buffer).toBeTruthy();
+    expect(chunk.toString('UTF8')).toBe('Hello, World!');
   });
 
   it('signals end', done => {
@@ -42,7 +42,7 @@ describe('StreamBuf', () => {
       const sb = new StreamBuf();
       sb.on('finish', () => {
         const buf = sb.toBuffer();
-        expect(buf.length).to.equal(1672);
+        expect(buf.length).toBe(1672);
         resolve();
       });
       sb.on('error', reject);
@@ -52,9 +52,9 @@ describe('StreamBuf', () => {
     const stream = new StreamBuf();
     try {
       await stream.write({});
-      expect.fail('should fail for given argument');
+      throw new Error('should fail for given argument');
     } catch (e) {
-      expect(e.message).to.equal(
+      expect(e.message).toBe(
         'Chunk must be one of type String, Buffer or StringBuf.'
       );
     }

@@ -27,10 +27,10 @@ describe('github issues', () => {
 
       ws.spliceColumns(2, 1);
 
-      expect(row.getCell(1).note).to.equal('test1');
-      expect(row.getCell(2).note).to.equal('test3');
-      expect(row.getCell(3).note).to.equal('test4');
-      expect(row.getCell(4).note).to.equal(undefined);
+      expect(row.getCell(1).note).toBe('test1');
+      expect(row.getCell(2).note).toBe('test3');
+      expect(row.getCell(3).note).toBe('test4');
+      expect(row.getCell(4).note).toBe(undefined);
 
       await wb.xlsx.writeFile(TEST_XLSX_FILE_NAME);
     })();

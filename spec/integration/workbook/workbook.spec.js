@@ -123,11 +123,11 @@ describe('Workbook', () => {
     it('sheets with correct names', () => {
       const wb = new ExcelJS.Workbook();
       const ws1 = wb.addWorksheet('Hello, World!');
-      expect(ws1.name).to.equal('Hello, World!');
+      expect(ws1.name).toBe('Hello, World!');
       ws1.getCell('A1').value = 'Hello, World!';
 
       const ws2 = wb.addWorksheet();
-      expect(ws2.name).to.match(/sheet\d+/);
+      expect(ws2.name).toMatch(/sheet\d+/);
       ws2.getCell('A1').value = ws2.name;
 
       wb.addWorksheet('This & That');
@@ -139,8 +139,8 @@ describe('Workbook', () => {
           return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
         })
         .then(wb2 => {
-          expect(wb2.getWorksheet('Hello, World!')).to.be.ok();
-          expect(wb2.getWorksheet('This & That')).to.be.ok();
+          expect(wb2.getWorksheet('Hello, World!')).toBeTruthy();
+          expect(wb2.getWorksheet('This & That')).toBeTruthy();
         });
     });
 
@@ -159,10 +159,10 @@ describe('Workbook', () => {
           return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
         })
         .then(wb2 => {
-          expect(wb2.creator).to.equal(wb.creator);
-          expect(wb2.lastModifiedBy).to.equal(wb.lastModifiedBy);
-          expect(wb2.created).to.equalDate(wb.created);
-          expect(wb2.modified).to.equalDate(wb.modified);
+          expect(wb2.creator).toBe(wb.creator);
+          expect(wb2.lastModifiedBy).toBe(wb.lastModifiedBy);
+          expect(wb2.created).toEqualDate(wb.created);
+          expect(wb2.modified).toEqualDate(wb.modified);
         });
     });
     it('printTitlesRow', () => {
@@ -187,8 +187,8 @@ describe('Workbook', () => {
         })
         .then(wb2 => {
           const ws2 = wb2.getWorksheet('printHeader');
-          expect(ws2.pageSetup.printTitlesRow).to.equal('1:2');
-          expect(ws2.pageSetup.printTitlesColumn).to.be.undefined();
+          expect(ws2.pageSetup.printTitlesRow).toBe('1:2');
+          expect(ws2.pageSetup.printTitlesColumn).toBeUndefined();
         });
     });
     it('printTitlesColumn', () => {
@@ -217,8 +217,8 @@ describe('Workbook', () => {
         })
         .then(wb2 => {
           const ws2 = wb2.getWorksheet('printColumn');
-          expect(ws2.pageSetup.printTitlesRow).to.be.undefined();
-          expect(ws2.pageSetup.printTitlesColumn).to.equal('A:B');
+          expect(ws2.pageSetup.printTitlesRow).toBeUndefined();
+          expect(ws2.pageSetup.printTitlesColumn).toBe('A:B');
         });
     });
     it('printTitlesRowAndColumn', () => {
@@ -262,8 +262,8 @@ describe('Workbook', () => {
         })
         .then(wb2 => {
           const ws2 = wb2.getWorksheet('printHeaderAndColumn');
-          expect(ws2.pageSetup.printTitlesRow).to.equal('1:2');
-          expect(ws2.pageSetup.printTitlesColumn).to.equal('A:B');
+          expect(ws2.pageSetup.printTitlesRow).toBe('1:2');
+          expect(ws2.pageSetup.printTitlesColumn).toBe('A:B');
         });
     });
 
@@ -282,21 +282,21 @@ describe('Workbook', () => {
         })
         .then(wb2 => {
           const ws2 = wb2.getWorksheet('Hello');
-          expect(ws2.getCell('A1').value).to.deep.equal({
+          expect(ws2.getCell('A1').value).toEqual({
             formula: 'ROW()+COLUMN()',
             shareType: 'shared',
             ref: 'A1:B2',
             result: 2,
           });
-          expect(ws2.getCell('B1').value).to.deep.equal({
+          expect(ws2.getCell('B1').value).toEqual({
             sharedFormula: 'A1',
             result: 3,
           });
-          expect(ws2.getCell('A2').value).to.deep.equal({
+          expect(ws2.getCell('A2').value).toEqual({
             sharedFormula: 'A1',
             result: 3,
           });
-          expect(ws2.getCell('B2').value).to.deep.equal({
+          expect(ws2.getCell('B2').value).toEqual({
             sharedFormula: 'A1',
             result: 4,
           });
@@ -323,7 +323,7 @@ describe('Workbook', () => {
         })
         .then(wb2 => {
           const ws2 = wb2.getWorksheet('Hello');
-          expect(ws2.autoFilter).to.equal('A1:B1');
+          expect(ws2.autoFilter).toBe('A1:B1');
         });
     });
 
@@ -340,8 +340,8 @@ describe('Workbook', () => {
           return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
         })
         .then(wb2 => {
-          expect(wb2.company).to.equal(wb.company);
-          expect(wb2.manager).to.equal(wb.manager);
+          expect(wb2.company).toBe(wb.company);
+          expect(wb2.manager).toBe(wb.manager);
         });
     });
 
@@ -361,11 +361,11 @@ describe('Workbook', () => {
           return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
         })
         .then(wb2 => {
-          expect(wb2.title).to.equal(wb.title);
-          expect(wb2.subject).to.equal(wb.subject);
-          expect(wb2.keywords).to.equal(wb.keywords);
-          expect(wb2.category).to.equal(wb.category);
-          expect(wb2.description).to.equal(wb.description);
+          expect(wb2.title).toBe(wb.title);
+          expect(wb2.subject).toBe(wb.subject);
+          expect(wb2.keywords).toBe(wb.keywords);
+          expect(wb2.category).toBe(wb.category);
+          expect(wb2.description).toBe(wb.description);
         });
     });
 
@@ -383,9 +383,9 @@ describe('Workbook', () => {
           return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
         })
         .then(wb2 => {
-          expect(wb2.language).to.equal(wb.language);
-          expect(wb2.revision).to.equal(wb.revision);
-          expect(wb2.contentStatus).to.equal(wb.contentStatus);
+          expect(wb2.language).toBe(wb.language);
+          expect(wb2.revision).toBe(wb.revision);
+          expect(wb2.contentStatus).toBe(wb.contentStatus);
         });
     });
 
@@ -404,9 +404,9 @@ describe('Workbook', () => {
         .then(wb2 => {
           const ws2 = wb2.getWorksheet('Hello');
 
-          expect(ws2.getCell('A1').value).to.equal('Foo');
-          expect(ws2.getCell('A2').value).to.equal('');
-          expect(ws2.getCell('A3').value).to.equal('Baz');
+          expect(ws2.getCell('A1').value).toBe('Foo');
+          expect(ws2.getCell('A2').value).toBe('');
+          expect(ws2.getCell('A3').value).toBe('Baz');
         });
     });
 
@@ -440,9 +440,7 @@ describe('Workbook', () => {
       return wb.xlsx.writeFile(TEST_XLSX_FILE_NAME);
     });
 
-    it('a lot of sheets to xlsx file', function() {
-      this.timeout(10000);
-
+    it('a lot of sheets to xlsx file', () => {
       let i;
       const wb = new ExcelJS.Workbook();
       const numSheets = 90;
@@ -460,15 +458,13 @@ describe('Workbook', () => {
         .then(wb2 => {
           for (i = 1; i <= numSheets; i++) {
             const ws2 = wb2.getWorksheet(`sheet${i}`);
-            expect(ws2).to.be.ok();
-            expect(ws2.getCell('A1').value).to.equal(i);
+            expect(ws2).toBeTruthy();
+            expect(ws2.getCell('A1').value).toBe(i);
           }
         });
     });
 
-    it('csv file', function() {
-      this.timeout(5000);
-
+    it('csv file', () => {
       const wb = testUtils.createTestBook(new ExcelJS.Workbook(), 'csv');
 
       return wb.csv
@@ -482,8 +478,7 @@ describe('Workbook', () => {
         });
     });
 
-    it('CSV file and its configuration', function() {
-      this.timeout(5000);
+    it('CSV file and its configuration', () => {
       const writeOptions = {
         dateFormat: 'DD/MM/YYYY HH:mm:ss',
         dateUTC: false,
@@ -576,8 +571,8 @@ describe('Workbook', () => {
 
           function check(sheet, address, value, name) {
             const cell = sheet.getCell(address);
-            expect(cell.value).to.equal(value);
-            expect(cell.name).to.equal(name);
+            expect(cell.value).toBe(value);
+            expect(cell.name).toBe(name);
           }
 
           // single entry
@@ -615,11 +610,11 @@ describe('Workbook', () => {
           // ranges
           function rangeCheck(name, members) {
             const ranges = wb2.definedNames.getRanges(name);
-            expect(ranges.name).to.equal(name);
+            expect(ranges.name).toBe(name);
             if (members.length) {
               expect(ranges.ranges).to.have.members(members);
             } else {
-              expect(ranges.ranges.length).to.equal(0);
+              expect(ranges.ranges.length).toBe(0);
             }
           }
 
@@ -656,11 +651,11 @@ describe('Workbook', () => {
             .then(wb2 => {
               const ws2 = wb2.getWorksheet('duplicateTest');
 
-              expect(ws2.getCell('A2').value).to.equal('OneInfo');
-              expect(ws2.getCell('A2').style).to.equal(ws2.getCell('A1').style);
-              expect(ws2.getCell('A3').value).to.equal('OneInfo');
-              expect(ws2.getCell('A3').style).to.equal(ws2.getCell('A1').style);
-              expect(ws2.getCell('A4').value).to.be.null();
+              expect(ws2.getCell('A2').value).toBe('OneInfo');
+              expect(ws2.getCell('A2').style).toBe(ws2.getCell('A1').style);
+              expect(ws2.getCell('A3').value).toBe('OneInfo');
+              expect(ws2.getCell('A3').style).toBe(ws2.getCell('A1').style);
+              expect(ws2.getCell('A4').value).toBeNull();
             });
         });
       });
@@ -683,10 +678,10 @@ describe('Workbook', () => {
           .then(wb2 => {
             const ws2 = wb2.getWorksheet('duplicateTest');
 
-            expect(ws2.getCell('A1').value).to.equal('OneInfo');
-            expect(ws2.getCell('A2').value).to.equal('OneInfo');
-            expect(ws2.getCell('A3').value).to.equal('OneInfo');
-            expect(ws2.getCell('A4').value).to.equal('FourInfo');
+            expect(ws2.getCell('A1').value).toBe('OneInfo');
+            expect(ws2.getCell('A2').value).toBe('OneInfo');
+            expect(ws2.getCell('A3').value).toBe('OneInfo');
+            expect(ws2.getCell('A4').value).toBe('FourInfo');
           });
       });
 
@@ -708,10 +703,10 @@ describe('Workbook', () => {
           .then(wb2 => {
             const ws2 = wb2.getWorksheet('duplicateTest');
 
-            expect(ws2.getCell('A1').value).to.equal('OneInfo');
-            expect(ws2.getCell('A2').value).to.equal('OneInfo');
-            expect(ws2.getCell('A3').value).to.equal('OneInfo');
-            expect(ws2.getCell('A4').value).to.equal('TwoInfo');
+            expect(ws2.getCell('A1').value).toBe('OneInfo');
+            expect(ws2.getCell('A2').value).toBe('OneInfo');
+            expect(ws2.getCell('A3').value).toBe('OneInfo');
+            expect(ws2.getCell('A4').value).toBe('TwoInfo');
           });
       });
 
@@ -733,10 +728,10 @@ describe('Workbook', () => {
           .then(wb2 => {
             const ws2 = wb2.getWorksheet('duplicateTest');
 
-            expect(ws2.getCell('A1').value).to.equal('OneInfo');
-            expect(ws2.getCell('A2').value).to.equal('OneInfo');
-            expect(ws2.getRow(1).height).to.equal(ws2.getRow(2).height);
-            expect(ws2.getRow(1).height).to.not.equal(ws2.getRow(3).height);
+            expect(ws2.getCell('A1').value).toBe('OneInfo');
+            expect(ws2.getCell('A2').value).toBe('OneInfo');
+            expect(ws2.getRow(1).height).toBe(ws2.getRow(2).height);
+            expect(ws2.getRow(1).height).not.toBe(ws2.getRow(3).height);
           });
       });
     });
@@ -760,15 +755,15 @@ describe('Workbook', () => {
           .then(wb2 => {
             const ws2 = wb2.getWorksheet('blort');
 
-            expect(ws2.getCell('B2').value).to.equal('B2');
-            expect(ws2.getCell('B3').value).to.equal('B2');
-            expect(ws2.getCell('C2').value).to.equal('B2');
-            expect(ws2.getCell('C3').value).to.equal('B2');
+            expect(ws2.getCell('B2').value).toBe('B2');
+            expect(ws2.getCell('B3').value).toBe('B2');
+            expect(ws2.getCell('C2').value).toBe('B2');
+            expect(ws2.getCell('C3').value).toBe('B2');
 
-            expect(ws2.getCell('B2').type).to.equal(ExcelJS.ValueType.String);
-            expect(ws2.getCell('B3').type).to.equal(ExcelJS.ValueType.Merge);
-            expect(ws2.getCell('C2').type).to.equal(ExcelJS.ValueType.Merge);
-            expect(ws2.getCell('C3').type).to.equal(ExcelJS.ValueType.Merge);
+            expect(ws2.getCell('B2').type).toBe(ExcelJS.ValueType.String);
+            expect(ws2.getCell('B3').type).toBe(ExcelJS.ValueType.Merge);
+            expect(ws2.getCell('C2').type).toBe(ExcelJS.ValueType.Merge);
+            expect(ws2.getCell('C3').type).toBe(ExcelJS.ValueType.Merge);
           });
       });
 
@@ -797,67 +792,67 @@ describe('Workbook', () => {
           .then(wb2 => {
             const ws2 = wb2.getWorksheet('blort');
 
-            expect(ws2.getCell('B2').font).to.deep.equal(
+            expect(ws2.getCell('B2').font).toEqual(
               testUtils.styles.fonts.broadwayRedOutline20
             );
-            expect(ws2.getCell('B2').border).to.deep.equal(
+            expect(ws2.getCell('B2').border).toEqual(
               testUtils.styles.borders.doubleRed
             );
-            expect(ws2.getCell('B2').fill).to.deep.equal(
+            expect(ws2.getCell('B2').fill).toEqual(
               testUtils.styles.fills.blueWhiteHGrad
             );
-            expect(ws2.getCell('B2').alignment).to.deep.equal(
+            expect(ws2.getCell('B2').alignment).toEqual(
               testUtils.styles.namedAlignments.middleCentre
             );
-            expect(ws2.getCell('B2').numFmt).to.equal(
+            expect(ws2.getCell('B2').numFmt).toBe(
               testUtils.styles.numFmts.numFmt1
             );
 
-            expect(ws2.getCell('B3').font).to.deep.equal(
+            expect(ws2.getCell('B3').font).toEqual(
               testUtils.styles.fonts.broadwayRedOutline20
             );
-            expect(ws2.getCell('B3').border).to.deep.equal(
+            expect(ws2.getCell('B3').border).toEqual(
               testUtils.styles.borders.doubleRed
             );
-            expect(ws2.getCell('B3').fill).to.deep.equal(
+            expect(ws2.getCell('B3').fill).toEqual(
               testUtils.styles.fills.blueWhiteHGrad
             );
-            expect(ws2.getCell('B3').alignment).to.deep.equal(
+            expect(ws2.getCell('B3').alignment).toEqual(
               testUtils.styles.namedAlignments.middleCentre
             );
-            expect(ws2.getCell('B3').numFmt).to.equal(
+            expect(ws2.getCell('B3').numFmt).toBe(
               testUtils.styles.numFmts.numFmt1
             );
 
-            expect(ws2.getCell('C2').font).to.deep.equal(
+            expect(ws2.getCell('C2').font).toEqual(
               testUtils.styles.fonts.broadwayRedOutline20
             );
-            expect(ws2.getCell('C2').border).to.deep.equal(
+            expect(ws2.getCell('C2').border).toEqual(
               testUtils.styles.borders.doubleRed
             );
-            expect(ws2.getCell('C2').fill).to.deep.equal(
+            expect(ws2.getCell('C2').fill).toEqual(
               testUtils.styles.fills.blueWhiteHGrad
             );
-            expect(ws2.getCell('C2').alignment).to.deep.equal(
+            expect(ws2.getCell('C2').alignment).toEqual(
               testUtils.styles.namedAlignments.middleCentre
             );
-            expect(ws2.getCell('C2').numFmt).to.equal(
+            expect(ws2.getCell('C2').numFmt).toBe(
               testUtils.styles.numFmts.numFmt1
             );
 
-            expect(ws2.getCell('C3').font).to.deep.equal(
+            expect(ws2.getCell('C3').font).toEqual(
               testUtils.styles.fonts.broadwayRedOutline20
             );
-            expect(ws2.getCell('C3').border).to.deep.equal(
+            expect(ws2.getCell('C3').border).toEqual(
               testUtils.styles.borders.doubleRed
             );
-            expect(ws2.getCell('C3').fill).to.deep.equal(
+            expect(ws2.getCell('C3').fill).toEqual(
               testUtils.styles.fills.blueWhiteHGrad
             );
-            expect(ws2.getCell('C3').alignment).to.deep.equal(
+            expect(ws2.getCell('C3').alignment).toEqual(
               testUtils.styles.namedAlignments.middleCentre
             );
-            expect(ws2.getCell('C3').numFmt).to.equal(
+            expect(ws2.getCell('C3').numFmt).toBe(
               testUtils.styles.numFmts.numFmt1
             );
           });
@@ -910,7 +905,7 @@ describe('Workbook', () => {
         // expect the right kind of error
       })
       .then(() => {
-        expect(success).to.equal(2);
+        expect(success).toBe(2);
       });
   });
 
@@ -927,19 +922,19 @@ describe('Workbook', () => {
         // expect the right kind of error
       })
       .then(() => {
-        expect(success).to.equal(2);
+        expect(success).toBe(2);
       });
   });
   it('throw an error for wrong data type', async () => {
     const wb = new ExcelJS.Workbook();
     try {
       await wb.xlsx.load({});
-      expect.fail('should fail for given argument');
+      throw new Error('should fail for given argument');
     } catch (e) {
       // JSZip error messages vary by version, just verify an error is thrown
-      expect(e).to.be.an('error');
-      expect(e.message).to.be.a('string');
-      expect(e.message.length).to.be.greaterThan(0);
+      expect(e).toBeTypeOf('error');
+      expect(e.message).toBeTypeOf('string');
+      expect(e.message.length).toBeGreaterThan(0);
     }
   });
 
@@ -968,9 +963,9 @@ describe('Workbook', () => {
         })
         .then(wb2 => {
           const ws2 = wb2.getWorksheet('frozen');
-          expect(ws2).to.be.ok();
-          expect(ws2.getCell('A1').value).to.equal('Let it Snow!');
-          expect(ws2.views).to.deep.equal([
+          expect(ws2).toBeTruthy();
+          expect(ws2.getCell('A1').value).toBe('Let it Snow!');
+          expect(ws2.views).toEqual([
             {
               workbookViewId: 0,
               state: 'frozen',
@@ -1045,9 +1040,9 @@ describe('Workbook', () => {
         })
         .then(wb2 => {
           const ws2 = wb2.getWorksheet('split');
-          expect(ws2).to.be.ok();
-          expect(ws2.getCell('A1').value).to.equal('Do the splits!');
-          expect(ws2.views).to.deep.equal([
+          expect(ws2).toBeTruthy();
+          expect(ws2.getCell('A1').value).toBe('Do the splits!');
+          expect(ws2.views).toEqual([
             {
               workbookViewId: 0,
               state: 'split',
@@ -1112,13 +1107,13 @@ describe('Workbook', () => {
           return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
         })
         .then(wb2 => {
-          expect(wb2.views).to.deep.equal(wb.views);
+          expect(wb2.views).toEqual(wb.views);
 
           const ws1b = wb2.getWorksheet('one');
-          expect(ws1b.views).to.deep.equal(ws1.views);
+          expect(ws1b.views).toEqual(ws1.views);
 
           const ws2b = wb2.getWorksheet('two');
-          expect(ws2b.views).to.deep.equal(ws2.views);
+          expect(ws2b.views).toEqual(ws2.views);
         });
     });
   });

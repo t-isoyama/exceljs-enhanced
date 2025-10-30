@@ -1,0 +1,129 @@
+// Vitest global setup file
+// Complete migration from Mocha/Chai to pure Vitest
+
+import { expect, beforeAll, afterAll, beforeEach, afterEach, describe } from 'vitest';
+
+// Import verquire for global access
+const verquire = require('../utils/verquire');
+
+// Make verquire globally available (used in many test files)
+global.verquire = verquire;
+
+// Add Mocha-style global hooks for backward compatibility
+global.before = beforeAll;
+global.after = afterAll;
+global.beforeEach = beforeEach;
+global.afterEach = afterEach;
+
+// Add Mocha-style context alias for describe
+global.context = describe;
+
+// Make Vitest's expect available globally
+global.expect = expect;
+
+// ============================================================================
+// Custom Vitest Matchers - Replacing Chai plugins
+// ============================================================================
+
+expect.extend({
+  // ========================================
+  // XML Matcher (replaces chai-xml)
+  // ========================================
+  toEqualXml(received, expected) {
+    // Normalize XML strings by:
+    // 1. Removing whitespace between tags (> <)
+    // 2. Removing leading/trailing whitespace per line
+    // 3. Normalizing internal whitespace to single space
+    // 4. Normalizing self-closing tags (remove space before /> and >)
+    // 5. Trimming
+    const normalize = xml =>
+      String(xml)
+        .replace(/>\s+</g, '><')
+        .replace(/^\s+|\s+$/gm, '')
+        .replace(/\s+/g, ' ')
+        .replace(/\s+\/>/g, '/>') // Normalize self-closing tags
+        .replace(/\s+>/g, '>') // Remove space before >
+        .trim();
+
+    const normalizedReceived = normalize(received);
+    const normalizedExpected = normalize(expected);
+
+    const pass = normalizedReceived === normalizedExpected;
+
+    return {
+      pass,
+      message: () =>
+        pass
+          ? `Expected XML not to be equal`
+          : `Expected XML to be equal\n\nReceived:\n${normalizedReceived}\n\nExpected:\n${normalizedExpected}`,
+    };
+  },
+
+  // ========================================
+  // Date Matcher (replaces chai-datetime)
+  // ========================================
+  toEqualDate(received, expected, tolerance = 0) {
+    const receivedTime = received instanceof Date ? received.getTime() : NaN;
+    const expectedTime = expected instanceof Date ? expected.getTime() : NaN;
+
+    if (Number.isNaN(receivedTime) || Number.isNaN(expectedTime)) {
+      return {
+        pass: false,
+        message: () => `Expected both values to be valid Date objects\nReceived: ${received}\nExpected: ${expected}`,
+      };
+    }
+
+    const diff = Math.abs(receivedTime - expectedTime);
+    const pass = diff <= tolerance;
+
+    return {
+      pass,
+      message: () =>
+        pass
+          ? `Expected dates not to be equal (tolerance: ${tolerance}ms)`
+          : `Expected dates to be equal (tolerance: ${tolerance}ms)\nReceived: ${received.toISOString()}\nExpected: ${expected.toISOString()}\nDifference: ${diff}ms`,
+    };
+  },
+
+  // ========================================
+  // Additional Date Matchers
+  // ========================================
+  toBeDate(received) {
+    const pass = received instanceof Date && !Number.isNaN(received.getTime());
+    return {
+      pass,
+      message: () =>
+        pass
+          ? `Expected value not to be a valid Date`
+          : `Expected value to be a valid Date, received: ${typeof received}`,
+    };
+  },
+
+  toBeBeforeDate(received, expected) {
+    const receivedTime = received instanceof Date ? received.getTime() : NaN;
+    const expectedTime = expected instanceof Date ? expected.getTime() : NaN;
+    const pass = !Number.isNaN(receivedTime) && !Number.isNaN(expectedTime) && receivedTime < expectedTime;
+
+    return {
+      pass,
+      message: () =>
+        pass
+          ? `Expected ${received.toISOString()} not to be before ${expected.toISOString()}`
+          : `Expected ${received.toISOString()} to be before ${expected.toISOString()}`,
+    };
+  },
+
+  toBeAfterDate(received, expected) {
+    const receivedTime = received instanceof Date ? received.getTime() : NaN;
+    const expectedTime = expected instanceof Date ? expected.getTime() : NaN;
+    const pass = !Number.isNaN(receivedTime) && !Number.isNaN(expectedTime) && receivedTime > expectedTime;
+
+    return {
+      pass,
+      message: () =>
+        pass
+          ? `Expected ${received.toISOString()} not to be after ${expected.toISOString()}`
+          : `Expected ${received.toISOString()} to be after ${expected.toISOString()}`,
+    };
+  },
+});

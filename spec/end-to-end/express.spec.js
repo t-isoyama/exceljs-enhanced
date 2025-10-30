@@ -27,8 +27,7 @@ describe('Express', () => {
     server.close();
   });
 
-  it('downloads a workbook', async function() {
-    this.timeout(5000);
+  it('downloads a workbook', async () => {
     const response = await axios({
       method: 'get',
       url: 'http://127.0.0.1:3003/workbook',

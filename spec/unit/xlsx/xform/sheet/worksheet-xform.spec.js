@@ -165,9 +165,9 @@ describe('WorksheetXform', () => {
     const {xml} = xmlStream;
     const iHyperlinks = xml.indexOf('hyperlinks');
     const iDataValidations = xml.indexOf('dataValidations');
-    expect(iHyperlinks).not.to.equal(-1);
-    expect(iDataValidations).not.to.equal(-1);
-    expect(iHyperlinks).to.be.greaterThan(iDataValidations);
+    expect(iHyperlinks).not.toBe(-1);
+    expect(iDataValidations).not.toBe(-1);
+    expect(iHyperlinks).toBeGreaterThan(iDataValidations);
   });
 
   it('conditionalFormattings must be before dataValidations', () => {
@@ -184,8 +184,8 @@ describe('WorksheetXform', () => {
     const {xml} = xmlStream;
     const iConditionalFormatting = xml.indexOf('conditionalFormatting');
     const iDataValidations = xml.indexOf('dataValidations');
-    expect(iConditionalFormatting).not.to.equal(-1);
-    expect(iDataValidations).not.to.equal(-1);
-    expect(iConditionalFormatting).to.be.lessThan(iDataValidations);
+    expect(iConditionalFormatting).not.toBe(-1);
+    expect(iDataValidations).not.toBe(-1);
+    expect(iConditionalFormatting).toBeLessThan(iDataValidations);
   });
 });
