@@ -20,7 +20,8 @@ if (!fs.existsSync(distDir)) {
 }
 
 // Browserify helper
-function browserifyBundle(entry, output, sourcemap = true) {
+// Performance Phase 5: Optimized bundling with exclusions
+function browserifyBundle(entry, output, sourcemap = true, excludeHeavy = false) {
   return new Promise((resolve, reject) => {
     const b = browserify(entry, {
       debug: sourcemap, // Enable source maps
@@ -31,6 +32,17 @@ function browserifyBundle(entry, output, sourcemap = true) {
     // Exclude Node.js-only libraries (not available in browser)
     b.exclude('unzipper');
     b.exclude('archiver');
+
+    // Performance Phase 5: Exclude heavy modules for browser
+    if (excludeHeavy) {
+      // CSV support is rarely used in browser and adds significant size
+      b.exclude('fast-csv');
+      // Streaming functionality not typically used in browser
+      b.ignore('./stream/xlsx/workbook-writer.js');
+      b.ignore('./stream/xlsx/workbook-reader.js');
+      b.ignore('./stream/xlsx/worksheet-writer.js');
+      b.ignore('./stream/xlsx/worksheet-reader.js');
+    }
 
     const writeStream = fs.createWriteStream(output);
     writeStream.on('error', reject);
@@ -67,14 +79,23 @@ function extractSourceMap(jsFile) {
 }
 
 // Minify using esbuild (much faster than Terser)
+// Performance Phase 5: Optimized minification with tree-shaking
 async function minify(input, output) {
   const code = fs.readFileSync(input, 'utf8');
 
   try {
     const result = await esbuild.transform(code, {
       minify: true,
-      target: ['chrome90', 'firefox88', 'safari14', 'edge90'],
+      minifyWhitespace: true,
+      minifyIdentifiers: true,
+      minifySyntax: true,
+      target: ['es2020'], // Higher target for better optimization
       sourcemap: true,
+      // Performance Phase 5: Aggressive optimization
+      treeShaking: true, // Remove unused code
+      legalComments: 'none', // Remove all comments except banner
+      pure: ['console.log', 'console.debug', 'console.info'], // Remove console calls
+      drop: ['debugger'], // Remove debugger statements
       banner: `/*! ExcelJS ${new Date().toISOString().split('T')[0]} | Modern browsers (Chrome 90+, Firefox 88+, Safari 14+) */`,
     });
 
@@ -90,30 +111,30 @@ async function minify(input, output) {
 
 async function build() {
   try {
-    // Build 1: exceljs.js (non-minified)
-    console.log('Building exceljs.js (Browserify)...');
-    await browserifyBundle('lib/exceljs.browser.js', path.join(distDir, 'exceljs.js'));
+    // Build 1: exceljs.js (non-minified, full features)
+    console.log('Building exceljs.js (Browserify - full features)...');
+    await browserifyBundle('lib/exceljs.browser.js', path.join(distDir, 'exceljs.js'), true, false);
     extractSourceMap(path.join(distDir, 'exceljs.js'));
     console.log('✅ exceljs.js');
 
-    // Build 2: exceljs.bare.js (non-minified)
-    console.log('Building exceljs.bare.js (Browserify)...');
-    await browserifyBundle('lib/exceljs.bare.js', path.join(distDir, 'exceljs.bare.js'));
+    // Build 2: exceljs.bare.js (non-minified, optimized)
+    console.log('Building exceljs.bare.js (Browserify - optimized)...');
+    await browserifyBundle('lib/exceljs.browser.min.js', path.join(distDir, 'exceljs.bare.js'), true, true);
     extractSourceMap(path.join(distDir, 'exceljs.bare.js'));
-    console.log('✅ exceljs.bare.js');
+    console.log('✅ exceljs.bare.js (optimized)');
 
-    // Build 3: exceljs.min.js (minified with esbuild)
-    console.log('Minifying exceljs.min.js (esbuild)...');
-    await minify(
-      path.join(distDir, 'exceljs.js'),
-      path.join(distDir, 'exceljs.min.js')
-    );
-    console.log('✅ exceljs.min.js');
-
-    // Build 4: exceljs.bare.min.js (minified with esbuild)
-    console.log('Minifying exceljs.bare.min.js (esbuild)...');
+    // Build 3: exceljs.min.js (minified, optimized bundle)
+    console.log('Minifying exceljs.min.js (esbuild + optimization)...');
     await minify(
       path.join(distDir, 'exceljs.bare.js'),
+      path.join(distDir, 'exceljs.min.js')
+    );
+    console.log('✅ exceljs.min.js (optimized)');
+
+    // Build 4: exceljs.bare.min.js (minified, full features for compatibility)
+    console.log('Minifying exceljs.bare.min.js (esbuild - full features)...');
+    await minify(
+      path.join(distDir, 'exceljs.js'),
       path.join(distDir, 'exceljs.bare.min.js')
     );
     console.log('✅ exceljs.bare.min.js');
