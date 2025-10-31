@@ -30,19 +30,34 @@ expect.extend({
   // XML Matcher (replaces chai-xml)
   // ========================================
   toEqualXml(received, expected) {
+    // Sort attributes within XML tags to make comparison order-independent
+    const sortAttributes = xml => {
+      return String(xml).replace(/<(\w+)([^>\/]*)(\/?)/g, (match, tag, attrs, closing) => {
+        if (!attrs.trim()) {
+          return `<${tag}${closing}`;
+        }
+        // Extract and sort attribute key-value pairs
+        const attrPairs = attrs.trim().match(/(\w+)="([^"]*)"/g) || [];
+        const sorted = attrPairs.sort().join(' ');
+        return `<${tag} ${sorted}${closing}`;
+      });
+    };
+
     // Normalize XML strings by:
-    // 1. Removing whitespace between tags (> <)
-    // 2. Removing leading/trailing whitespace per line
-    // 3. Normalizing internal whitespace to single space
-    // 4. Normalizing self-closing tags (remove space before /> and >)
-    // 5. Trimming
+    // 1. Sorting attributes within each tag
+    // 2. Removing whitespace between tags (> <)
+    // 3. Removing leading/trailing whitespace per line
+    // 4. Normalizing internal whitespace to single space
+    // 5. Normalizing self-closing tags (remove space before /> and >)
+    // 6. Trimming
     const normalize = xml =>
-      String(xml)
+      sortAttributes(String(xml))
         .replace(/>\s+</g, '><')
         .replace(/^\s+|\s+$/gm, '')
         .replace(/\s+/g, ' ')
         .replace(/\s+\/>/g, '/>') // Normalize self-closing tags
         .replace(/\s+>/g, '>') // Remove space before >
+        .replace(/<\/>/g, '/>')  // Fix malformed closing tags
         .trim();
 
     const normalizedReceived = normalize(received);

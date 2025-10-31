@@ -108,15 +108,15 @@ const self = {
 
   checkSheet(wb) {
     const ws = wb.getWorksheet('data-validations');
-    expect(ws).to.not.be.undefined();
+    expect(ws).not.toBeUndefined();
 
-    expect(ws.getCell('B1').dataValidation).to.deep.equal(
+    expect(ws.getCell('B1').dataValidation).toEqual(
       self.dataValidations.B1
     );
-    expect(ws.getCell('B3').dataValidation).to.deep.equal(
+    expect(ws.getCell('B3').dataValidation).toEqual(
       self.dataValidations.B3
     );
-    expect(ws.getCell('B5').dataValidation).to.deep.equal(
+    expect(ws.getCell('B5').dataValidation).toEqual(
       self.dataValidations.B5
     );
 
@@ -125,25 +125,25 @@ const self = {
       ws.getCell(row, 1).value = tools.concatenateFormula(type);
       self.dataValidations.operators.forEach((operator, cIndex) => {
         const col = 3 + cIndex;
-        expect(ws.getCell(row, col).dataValidation).to.deep.equal(
+        expect(ws.getCell(row, col).dataValidation).toEqual(
           self.createDataValidations(type, operator)
         );
       });
     });
 
-    expect(ws.getCell('B13').dataValidation).to.deep.equal(
+    expect(ws.getCell('B13').dataValidation).toEqual(
       self.dataValidations.B13
     );
-    expect(ws.getCell('E13').dataValidation).to.deep.equal(
+    expect(ws.getCell('E13').dataValidation).toEqual(
       self.dataValidations.E13
     );
-    expect(ws.getCell('B15').dataValidation).to.deep.equal(
+    expect(ws.getCell('B15').dataValidation).toEqual(
       self.dataValidations.B15
     );
-    expect(ws.getCell('B17').dataValidation).to.deep.equal(
+    expect(ws.getCell('B17').dataValidation).toEqual(
       self.dataValidations.B17
     );
-    expect(ws.getCell('B19').dataValidation).to.deep.equal(
+    expect(ws.getCell('B19').dataValidation).toEqual(
       self.dataValidations.B19
     );
 
@@ -160,7 +160,7 @@ const self = {
       'E23',
       'F23',
     ].forEach(address => {
-      expect(ws.getCell(address).dataValidation).to.deep.equal(
+      expect(ws.getCell(address).dataValidation).toEqual(
         self.dataValidations.shared
       );
     });

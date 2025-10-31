@@ -7,7 +7,9 @@ const Excel = verquire('exceljs');
 
 describe('Express', () => {
   let server;
-  before(() => {
+  let port;
+
+  before(async () => {
     const app = express();
     app.get('/workbook', (req, res) => {
       const wb = testutils.createTestBook(new Excel.Workbook(), 'xlsx');
@@ -20,17 +22,25 @@ describe('Express', () => {
         res.end();
       });
     });
-    server = app.listen(3003);
+    // Use dynamic port assignment (port 0 = OS assigns available port)
+    await new Promise(resolve => {
+      server = app.listen(0, () => {
+        port = server.address().port;
+        resolve();
+      });
+    });
   });
 
   after(() => {
-    server.close();
+    if (server) {
+      server.close();
+    }
   });
 
   it('downloads a workbook', async () => {
     const response = await axios({
       method: 'get',
-      url: 'http://127.0.0.1:3003/workbook',
+      url: `http://127.0.0.1:${port}/workbook`,
       responseType: 'stream',
       decompress: false,
     });

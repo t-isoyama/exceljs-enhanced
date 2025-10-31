@@ -90,11 +90,18 @@ function transformFile(filePath) {
 function main() {
   console.log('🔄 Starting Chai to Vitest migration...\n');
 
-  // Find all test files
-  const testFiles = glob.sync('spec/**/*.spec.js', {
-    cwd: path.join(__dirname, '..'),
-    absolute: true,
-  });
+  // Find all test files and helper files
+  const testFiles = [
+    ...glob.sync('spec/**/*.spec.js', {
+      cwd: path.join(__dirname, '..'),
+      absolute: true,
+    }),
+    ...glob.sync('spec/utils/*.js', {
+      cwd: path.join(__dirname, '..'),
+      absolute: true,
+      ignore: ['**/verquire.js', '**/tools.js', '**/under-dash.js'],
+    }),
+  ];
 
   console.log(`Found ${testFiles.length} test files\n`);
 
