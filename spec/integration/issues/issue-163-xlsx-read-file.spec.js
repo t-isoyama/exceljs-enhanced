@@ -7,7 +7,7 @@ describe('github issues', () => {
       .readFile('./spec/integration/data/test-issue-163.xlsx')
       .then(() => {
         // arriving here is success
-        expect(true).to.equal(true);
+        expect(true).toBe(true);
       });
   });
 });

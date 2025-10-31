@@ -33,7 +33,7 @@ describe('Workbook', () => {
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
-          expect(ws2).to.not.be.undefined();
+          expect(ws2).not.toBeUndefined();
 
           return fsReadFileAsync(IMAGE_FILENAME);
         })
@@ -41,7 +41,7 @@ describe('Workbook', () => {
           const backgroundId2 = ws2.getBackgroundImageId();
           const image = wb2.getImage(backgroundId2);
 
-          expect(Buffer.compare(imageData, image.buffer)).to.equal(0);
+          expect(Buffer.compare(imageData, image.buffer)).toBe(0);
         });
     });
 
@@ -71,10 +71,10 @@ describe('Workbook', () => {
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
-          expect(ws2).to.not.be.undefined();
+          expect(ws2).not.toBeUndefined();
 
-          expect(ws.getCell('A1').value).to.equal('Hello, World!');
-          expect(ws.getCell('A2').value).to.deep.equal({
+          expect(ws.getCell('A1').value).toBe('Hello, World!');
+          expect(ws.getCell('A2').value).toEqual({
             hyperlink: 'http://www.somewhere.com',
             text: 'www.somewhere.com',
           });
@@ -83,16 +83,16 @@ describe('Workbook', () => {
         })
         .then(imageData => {
           const images = ws2.getImages();
-          expect(images.length).to.equal(1);
+          expect(images.length).toBe(1);
 
           const imageDesc = images[0];
-          expect(imageDesc.range.tl.col).to.equal(2);
-          expect(imageDesc.range.tl.row).to.equal(2);
-          expect(imageDesc.range.br.col).to.equal(5);
-          expect(imageDesc.range.br.row).to.equal(6);
+          expect(imageDesc.range.tl.col).toBe(2);
+          expect(imageDesc.range.tl.row).toBe(2);
+          expect(imageDesc.range.br.col).toBe(5);
+          expect(imageDesc.range.br.row).toBe(6);
 
           const image = wb2.getImage(imageDesc.imageId);
-          expect(Buffer.compare(imageData, image.buffer)).to.equal(0);
+          expect(Buffer.compare(imageData, image.buffer)).toBe(0);
         });
     });
 
@@ -121,19 +121,19 @@ describe('Workbook', () => {
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
-          expect(ws2).to.not.be.undefined();
+          expect(ws2).not.toBeUndefined();
 
           return fsReadFileAsync(IMAGE_FILENAME);
         })
         .then(imageData => {
           const images = ws2.getImages();
-          expect(images.length).to.equal(1);
+          expect(images.length).toBe(1);
 
           const imageDesc = images[0];
-          expect(imageDesc.range.editAs).to.equal('oneCell');
+          expect(imageDesc.range.editAs).toBe('oneCell');
 
           const image = wb2.getImage(imageDesc.imageId);
-          expect(Buffer.compare(imageData, image.buffer)).to.equal(0);
+          expect(Buffer.compare(imageData, image.buffer)).toBe(0);
         });
     });
 
@@ -162,21 +162,21 @@ describe('Workbook', () => {
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
-          expect(ws2).to.not.be.undefined();
+          expect(ws2).not.toBeUndefined();
 
           return fsReadFileAsync(IMAGE_FILENAME);
         })
         .then(imageData => {
           const images = ws2.getImages();
-          expect(images.length).to.equal(1);
+          expect(images.length).toBe(1);
 
           const imageDesc = images[0];
-          expect(imageDesc.range.editAs).to.equal('oneCell');
-          expect(imageDesc.range.ext.width).to.equal(100);
-          expect(imageDesc.range.ext.height).to.equal(100);
+          expect(imageDesc.range.editAs).toBe('oneCell');
+          expect(imageDesc.range.ext.width).toBe(100);
+          expect(imageDesc.range.ext.height).toBe(100);
 
           const image = wb2.getImage(imageDesc.imageId);
-          expect(Buffer.compare(imageData, image.buffer)).to.equal(0);
+          expect(Buffer.compare(imageData, image.buffer)).toBe(0);
         });
     });
 
@@ -209,26 +209,26 @@ describe('Workbook', () => {
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
-          expect(ws2).to.not.be.undefined();
+          expect(ws2).not.toBeUndefined();
 
           return fsReadFileAsync(IMAGE_FILENAME);
         })
         .then(imageData => {
           const images = ws2.getImages();
-          expect(images.length).to.equal(1);
+          expect(images.length).toBe(1);
 
           const imageDesc = images[0];
-          expect(imageDesc.range.editAs).to.equal('absolute');
-          expect(imageDesc.range.ext.width).to.equal(100);
-          expect(imageDesc.range.ext.height).to.equal(100);
+          expect(imageDesc.range.editAs).toBe('absolute');
+          expect(imageDesc.range.ext.width).toBe(100);
+          expect(imageDesc.range.ext.height).toBe(100);
 
-          expect(imageDesc.range.hyperlinks).to.deep.equal({
+          expect(imageDesc.range.hyperlinks).toEqual({
             hyperlink: 'http://www.somewhere.com',
             tooltip: 'www.somewhere.com',
           });
 
           const image = wb2.getImage(imageDesc.imageId);
-          expect(Buffer.compare(imageData, image.buffer)).to.equal(0);
+          expect(Buffer.compare(imageData, image.buffer)).toBe(0);
         });
     });
 
@@ -267,26 +267,26 @@ describe('Workbook', () => {
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
-          expect(ws2).to.not.be.undefined();
+          expect(ws2).not.toBeUndefined();
 
           return fsReadFileAsync(IMAGE_FILENAME);
         })
         .then(imageData => {
           const images = ws2.getImages();
-          expect(images.length).to.equal(2);
+          expect(images.length).toBe(2);
 
           const imageDesc1 = images[0];
-          expect(imageDesc1.range.ext.width).to.equal(100);
-          expect(imageDesc1.range.ext.height).to.equal(100);
+          expect(imageDesc1.range.ext.width).toBe(100);
+          expect(imageDesc1.range.ext.height).toBe(100);
           const image1 = wb2.getImage(imageDesc1.imageId);
 
           const imageDesc2 = images[1];
-          expect(imageDesc2.range.editAs).to.equal('oneCell');
+          expect(imageDesc2.range.editAs).toBe('oneCell');
 
           const image2 = wb2.getImage(imageDesc1.imageId);
 
-          expect(Buffer.compare(imageData, image1.buffer)).to.equal(0);
-          expect(Buffer.compare(imageData, image2.buffer)).to.equal(0);
+          expect(Buffer.compare(imageData, image1.buffer)).toBe(0);
+          expect(Buffer.compare(imageData, image2.buffer)).toBe(0);
         });
     });
   });

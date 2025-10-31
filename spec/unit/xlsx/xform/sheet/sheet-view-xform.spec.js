@@ -269,7 +269,7 @@ const expectations = [
     title: 'Right To Left',
     create: () => new SheetViewXform(),
     preparedModel: {rightToLeft: true},
-    xml: '<sheetView workbookViewId="0" rightToLeft="1"></sheetView>',
+    xml: '<sheetView rightToLeft="1" workbookViewId="0"/>',
     parsedModel: {
       workbookViewId: 0,
       rightToLeft: true,

@@ -15,7 +15,7 @@ describe('shared-formula', () => {
     ];
     expectations.forEach(({args, result}) => {
       it(`${args[0]} from ${args[1]} to ${args[2]}`, () => {
-        expect(slideFormula(...args)).to.equal(result);
+        expect(slideFormula(...args)).toBe(result);
       });
     });
   });

@@ -64,13 +64,13 @@ function checkTable(ref, ws, testValues) {
       if (!cellValue) continue;
 
       if (value instanceof Date) {
-        expect(cellValue).to.equalDate(value);
+        expect(cellValue).toEqualDate(value);
       } else if (value === null) {
-        expect(cellValue).to.be.null();
+        expect(cellValue).toBeNull();
       } else if (typeof value === 'object') {
-        expect(cellValue).to.deep.equal(value);
+        expect(cellValue).toEqual(value);
       } else {
-        expect(cellValue).to.equal(value);
+        expect(cellValue).toBe(value);
       }
     }
   }

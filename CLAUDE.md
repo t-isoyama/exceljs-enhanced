@@ -17,13 +17,15 @@ npm run clean                    # Remove build artifacts
 
 ### Testing
 ```bash
-npm test                         # Run full test suite (unit + integration + end-to-end + jasmine)
+npm test                         # Run full test suite (unit + integration + end-to-end)
 npm run test:unit                # Run unit tests only
 npm run test:integration         # Run integration tests only
 npm run test:end-to-end          # Run end-to-end tests only
-npm run test:browser             # Run browser tests (if not disabled)
-npm run test:typescript          # Run TypeScript type tests
+npm run test:typescript          # Run TypeScript tests
 npm run test:dist                # Test distribution files
+npm run test:watch               # Run tests in watch mode
+npm run test:ui                  # Open Vitest UI for interactive testing
+npm run test:coverage            # Run tests with coverage report
 ```
 
 ### Linting
@@ -34,8 +36,9 @@ npm run lint:fix                 # Auto-fix linting issues with prettier-eslint
 
 ### Running Tests for a Single Test File
 ```bash
-mocha --require spec/config/setup spec/unit/path/to/test.spec.js
-mocha --require spec/config/setup spec/integration/path/to/test.spec.js
+vitest run spec/unit/path/to/test.spec.js
+vitest run spec/integration/path/to/test.spec.js
+vitest watch spec/unit/path/to/test.spec.js  # Watch mode for specific file
 ```
 
 ## Architecture Overview
@@ -265,11 +268,13 @@ Cells support multiple value types (see `lib/doc/cell.js`):
 
 ## Testing Conventions
 
-- Unit tests use Mocha + Chai
+- Unit tests use Vitest with Chai compatibility layer
 - Test files mirror source structure: `lib/doc/worksheet.js` → `spec/unit/doc/worksheet.spec.js`
 - Integration tests in `spec/integration/` often test specific GitHub issues
-- Use `spec/config/setup.js` for test environment configuration
-- Browser tests require PhantomJS (can be disabled with `.disable-test-browser` file)
+- Use `spec/config/vitest-setup.js` for test environment configuration
+- Global test APIs (describe, it, expect) are automatically available
+- Custom matchers for XML comparison and date assertions included
+- Browser tests can use Vitest Browser Mode (optional)
 
 ## TypeScript Support
 

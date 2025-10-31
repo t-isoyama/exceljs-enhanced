@@ -10,7 +10,7 @@ describe('github issues', () => {
     );
     workbookReader.read();
     workbookReader.on('worksheet', worksheet => {
-      expect(worksheet.name).to.equal('Sum Worksheet');
+      expect(worksheet.name).toBe('Sum Worksheet');
     });
   });
 });

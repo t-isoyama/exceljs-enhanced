@@ -74,25 +74,25 @@ describe('Workbook', () => {
     ws.getCell('A3').value = `${['Hello', 'World'].join(', ')}!`;
 
     // A1 and A3 should reference the same string object
-    expect(ws.getCell('A1').value).to.equal(ws.getCell('A3').value);
+    expect(ws.getCell('A1').value).toBe(ws.getCell('A3').value);
 
     // A1 and C2 should not reference the same object
-    expect(ws.getCell('A1').value).to.equal(ws.getCell('C2').value.result);
+    expect(ws.getCell('A1').value).toBe(ws.getCell('C2').value.result);
   });
 
   it('assigns cell types properly', () => {
     const wb = createSimpleWorkbook();
     const ws = wb.getWorksheet('blort');
 
-    expect(ws.getCell('A1').type).to.equal(Excel.ValueType.Number);
-    expect(ws.getCell('B1').type).to.equal(Excel.ValueType.String);
-    expect(ws.getCell('C1').type).to.equal(Excel.ValueType.Number);
-    expect(ws.getCell('D1').type).to.equal(Excel.ValueType.Date);
-    expect(ws.getCell('E1').type).to.equal(Excel.ValueType.Hyperlink);
+    expect(ws.getCell('A1').type).toBe(Excel.ValueType.Number);
+    expect(ws.getCell('B1').type).toBe(Excel.ValueType.String);
+    expect(ws.getCell('C1').type).toBe(Excel.ValueType.Number);
+    expect(ws.getCell('D1').type).toBe(Excel.ValueType.Date);
+    expect(ws.getCell('E1').type).toBe(Excel.ValueType.Hyperlink);
 
-    expect(ws.getCell('A2').type).to.equal(Excel.ValueType.Formula);
-    expect(ws.getCell('B2').type).to.equal(Excel.ValueType.Formula);
-    expect(ws.getCell('C2').type).to.equal(Excel.ValueType.Formula);
+    expect(ws.getCell('A2').type).toBe(Excel.ValueType.Formula);
+    expect(ws.getCell('B2').type).toBe(Excel.ValueType.Formula);
+    expect(ws.getCell('C2').type).toBe(Excel.ValueType.Formula);
   });
 
   it('assigns rich text', () => {
@@ -182,27 +182,27 @@ describe('Workbook', () => {
       ],
     };
 
-    expect(ws.getCell('A1').text).to.equal(
+    expect(ws.getCell('A1').text).toBe(
       'This is a colorful text with in-cell format'
     );
-    expect(ws.getCell('A1').type).to.equal(Excel.ValueType.RichText);
+    expect(ws.getCell('A1').type).toBe(Excel.ValueType.RichText);
   });
 
   it.skip('serialises to model', () => {
     const wb = createSimpleWorkbook();
-    expect(wb.model).to.deep.equal(simpleWorkbookModel);
+    expect(wb.model).toEqual(simpleWorkbookModel);
   });
 
   it('returns undefined for non-existant sheet', () => {
     const wb = new Excel.Workbook();
     wb.addWorksheet('first');
-    expect(wb.getWorksheet('w00t')).to.equal(undefined);
+    expect(wb.getWorksheet('w00t')).toBe(undefined);
   });
 
   it('returns undefined for sheet 0', () => {
     const wb = new Excel.Workbook();
     wb.addWorksheet('first');
-    expect(wb.getWorksheet(0)).to.equal(undefined);
+    expect(wb.getWorksheet(0)).toBe(undefined);
   });
 
   it('returns undefined for sheet 0 after accessing wb.worksheets or wb.eachSheet ', () => {
@@ -212,9 +212,9 @@ describe('Workbook', () => {
     wb.eachSheet(() => {});
     const numSheets = wb.worksheets.length;
 
-    expect(numSheets).to.equal(1);
-    expect(wb.getWorksheet(0)).to.equal(undefined);
-    expect(wb.getWorksheet(1) === sheet).to.equal(true);
+    expect(numSheets).toBe(1);
+    expect(wb.getWorksheet(0)).toBe(undefined);
+    expect(wb.getWorksheet(1) === sheet).toBe(true);
   });
 
   describe('duplicateRows', () => {
@@ -239,36 +239,36 @@ describe('Workbook', () => {
       ws.getRow(2).numFmt = testUtils.styles.numFmts.numFmt2;
 
       ws.duplicateRow(1, 2, true);
-      expect(ws.getRow(1).values).to.deep.equal([, '1.1', '1.2', '1.3']);
-      expect(ws.getRow(2).values).to.deep.equal([, '1.1', '1.2', '1.3']);
-      expect(ws.getRow(3).values).to.deep.equal([, '1.1', '1.2', '1.3']);
-      expect(ws.getRow(4).values).to.deep.equal([, '2.1', '2.2', '2.3']);
+      expect(ws.getRow(1).values).toEqual([, '1.1', '1.2', '1.3']);
+      expect(ws.getRow(2).values).toEqual([, '1.1', '1.2', '1.3']);
+      expect(ws.getRow(3).values).toEqual([, '1.1', '1.2', '1.3']);
+      expect(ws.getRow(4).values).toEqual([, '2.1', '2.2', '2.3']);
 
       for (let i = 1; i <= 3; i++) {
-        expect(ws.getCell(`A${i}`).font).to.deep.equal(
+        expect(ws.getCell(`A${i}`).font).toEqual(
           testUtils.styles.fonts.arialBlackUI14
         );
-        expect(ws.getCell(`B${i}`).font).to.deep.equal(
+        expect(ws.getCell(`B${i}`).font).toEqual(
           testUtils.styles.fonts.comicSansUdB16
         );
-        expect(ws.getCell(`C${i}`).fill).to.deep.equal(
+        expect(ws.getCell(`C${i}`).fill).toEqual(
           testUtils.styles.fills.redDarkVertical
         );
       }
-      expect(ws.getCell('A4').alignment).to.deep.equal(
+      expect(ws.getCell('A4').alignment).toEqual(
         testUtils.styles.namedAlignments.topLeft
       );
-      expect(ws.getCell('B4').alignment).to.deep.equal(
+      expect(ws.getCell('B4').alignment).toEqual(
         testUtils.styles.namedAlignments.middleCentre
       );
-      expect(ws.getCell('C4').alignment).to.deep.equal(
+      expect(ws.getCell('C4').alignment).toEqual(
         testUtils.styles.namedAlignments.bottomRight
       );
 
-      expect(ws.getRow(1).numFmt).to.equal(testUtils.styles.numFmts.numFmt1);
-      expect(ws.getRow(2).numFmt).to.equal(testUtils.styles.numFmts.numFmt1);
-      expect(ws.getRow(3).numFmt).to.equal(testUtils.styles.numFmts.numFmt1);
-      expect(ws.getRow(4).numFmt).to.equal(testUtils.styles.numFmts.numFmt2);
+      expect(ws.getRow(1).numFmt).toBe(testUtils.styles.numFmts.numFmt1);
+      expect(ws.getRow(2).numFmt).toBe(testUtils.styles.numFmts.numFmt1);
+      expect(ws.getRow(3).numFmt).toBe(testUtils.styles.numFmts.numFmt1);
+      expect(ws.getRow(4).numFmt).toBe(testUtils.styles.numFmts.numFmt2);
     });
 
     it('overwrites with duplicates', () => {
@@ -300,29 +300,29 @@ describe('Workbook', () => {
       ws.getRow(3).font = testUtils.styles.fonts.broadwayRedOutline20;
 
       ws.duplicateRow(1, 1, false);
-      expect(ws.getRow(1).values).to.deep.equal([, '1.1', '1.2', '1.3']);
-      expect(ws.getRow(2).values).to.deep.equal([, '1.1', '1.2', '1.3']);
-      expect(ws.getRow(3).values).to.deep.equal([, '3.1', '3.2', '3.3']);
+      expect(ws.getRow(1).values).toEqual([, '1.1', '1.2', '1.3']);
+      expect(ws.getRow(2).values).toEqual([, '1.1', '1.2', '1.3']);
+      expect(ws.getRow(3).values).toEqual([, '3.1', '3.2', '3.3']);
 
       for (let i = 1; i <= 2; i++) {
-        expect(ws.getCell(`A${i}`).font).to.deep.equal(
+        expect(ws.getCell(`A${i}`).font).toEqual(
           testUtils.styles.fonts.arialBlackUI14
         );
-        expect(ws.getCell(`A${i}`).alignment).to.be.undefined();
-        expect(ws.getCell(`B${i}`).font).to.deep.equal(
+        expect(ws.getCell(`A${i}`).alignment).toBeUndefined();
+        expect(ws.getCell(`B${i}`).font).toEqual(
           testUtils.styles.fonts.comicSansUdB16
         );
-        expect(ws.getCell(`B${i}`).alignment).to.undefined();
-        expect(ws.getCell(`C${i}`).fill).to.deep.equal(
+        expect(ws.getCell(`B${i}`).alignment).toBeUndefined();
+        expect(ws.getCell(`C${i}`).fill).toEqual(
           testUtils.styles.fills.redDarkVertical
         );
-        expect(ws.getCell(`C${i}`).alignment).to.undefined();
+        expect(ws.getCell(`C${i}`).alignment).toBeUndefined();
       }
 
-      expect(ws.getRow(1).numFmt).to.equal(testUtils.styles.numFmts.numFmt1);
-      expect(ws.getRow(2).numFmt).to.equal(testUtils.styles.numFmts.numFmt1);
-      expect(ws.getRow(3).numFmt).to.be.undefined();
-      expect(ws.getRow(3).font).to.deep.equal(
+      expect(ws.getRow(1).numFmt).toBe(testUtils.styles.numFmts.numFmt1);
+      expect(ws.getRow(2).numFmt).toBe(testUtils.styles.numFmts.numFmt1);
+      expect(ws.getRow(3).numFmt).toBeUndefined();
+      expect(ws.getRow(3).font).toEqual(
         testUtils.styles.fonts.broadwayRedOutline20
       );
     });

@@ -46,7 +46,7 @@ const its = {
         // console.log(xmlStream.xml);
         // console.log(result);
 
-        expect(xmlStream.xml).xml.to.equal(result);
+        expect(xmlStream.xml).toEqualXml(result);
         resolve();
       }));
   },
@@ -64,7 +64,7 @@ const its = {
         xform.prepare(model, expectation.options);
         xform.render(xmlStream, model);
 
-        expect(xmlStream.xml).xml.to.equal(result);
+        expect(xmlStream.xml).toEqualXml(result);
         resolve();
       }));
   },
@@ -101,7 +101,7 @@ const its = {
         xform.render(xmlStream, model);
         // console.log(xmlStream.xml);
 
-        expect(xmlStream.xml).xml.to.equal(result);
+        expect(xmlStream.xml).toEqualXml(result);
         resolve();
       }));
   },

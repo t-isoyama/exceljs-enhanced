@@ -8,6 +8,6 @@ describe('github issues', () => {
 
     ws.spliceRows(ws.rowCount, 1);
 
-    expect(ws.getRow(ws.rowCount).getCell(1).value).to.equal('2nd');
+    expect(ws.getRow(ws.rowCount).getCell(1).value).toBe('2nd');
   });
 });

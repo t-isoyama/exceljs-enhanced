@@ -9,8 +9,18 @@
   ],
   "env": {
     "es6": true,
-    "mocha": true,
     "node": true
+  },
+  "globals": {
+    "describe": "readonly",
+    "context": "readonly",
+    "it": "readonly",
+    "expect": "readonly",
+    "beforeEach": "readonly",
+    "afterEach": "readonly",
+    "before": "readonly",
+    "after": "readonly",
+    "vi": "readonly"
   },
   "rules": {
     "arrow-body-style": ["off"],

@@ -16,7 +16,7 @@ describe('XmlStream', () => {
     xmlStream.closeNode();
     xmlStream.closeNode();
     xmlStream.closeNode();
-    expect(xmlStream.xml).to.equal(
+    expect(xmlStream.xml).toBe(
       '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<root attr1="attr1-value" attr2="attr2-value"><l1><l2 l2a1="v1" l2a2="v2"/></l1></root>'
     );
   });
@@ -36,7 +36,7 @@ describe('XmlStream', () => {
     xmlStream.closeNode();
     xmlStream.closeNode();
     xmlStream.closeNode();
-    expect(xmlStream.xml).to.equal(
+    expect(xmlStream.xml).toBe(
       '<root><l1><l2 l2a1="v1">Hello, World!</l2><l2 l2a1="v2">See ya later, Alligator!</l2></l1></root>'
     );
   });
@@ -48,7 +48,7 @@ describe('XmlStream', () => {
     xmlStream.writeText('<escape this!>');
     xmlStream.closeNode();
     xmlStream.closeNode();
-    expect(xmlStream.xml).to.equal(
+    expect(xmlStream.xml).toBe(
       '<root><l1>&lt;escape this!&gt;</l1></root>'
     );
   });
@@ -63,7 +63,7 @@ describe('XmlStream', () => {
     xmlStream.leafNode('l2', {quote: '"this"'});
     xmlStream.closeNode();
     xmlStream.closeNode();
-    expect(xmlStream.xml).to.equal(
+    expect(xmlStream.xml).toBe(
       '<root><l1 stuff="this &amp; that"><l2 foo="&lt;bar&gt;"/><l2 quote="&quot;this&quot;"/></l1></root>'
     );
   });
@@ -81,6 +81,6 @@ describe('XmlStream', () => {
     xmlStream.openNode('valid');
     xmlStream.closeNode();
     xmlStream.closeNode();
-    expect(xmlStream.xml).to.equal('<root in="1" also="2"><valid/></root>');
+    expect(xmlStream.xml).toBe('<root in="1" also="2"><valid/></root>');
   });
 });

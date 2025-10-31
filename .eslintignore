@@ -2,3 +2,8 @@ build
 dist
 out
 spec/manual/public/
+vitest.config.js
+spec/config/vitest-setup.js
+scripts/migrate-chai-to-vitest.js
+spec/utils/verquire.js
+test/test-jszip.js

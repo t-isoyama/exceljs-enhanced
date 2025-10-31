@@ -33,6 +33,6 @@ describe('github issues', () => {
 
 function checkBorder(cell, borders) {
   borders.forEach(b => {
-    expect(cell.style.border).to.have.property(b);
+    expect(cell.style.border).toHaveProperty(b);
   });
 }

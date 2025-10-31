@@ -18,6 +18,6 @@ describe('pull request  2244', () => {
     } catch (err) {
       error = err;
     }
-    expect(error).to.be.an('error');
+    expect(error).toBeInstanceOf(Error);
   });
 });

@@ -41,7 +41,7 @@
             <formula1>$C$1:$C$3</formula1>
         </dataValidation>
         <dataValidation type="list" allowBlank="1" showInputMessage="1" showErrorMessage="1" sqref="B5">
-            <formula1>"value 1, value 2, value 3"</formula1>
+            <formula1>&quot;value 1, value 2, value 3&quot;</formula1>
         </dataValidation>
         <dataValidation type="whole" allowBlank="1" showInputMessage="1" showErrorMessage="1" sqref="B7">
             <formula1>1</formula1>

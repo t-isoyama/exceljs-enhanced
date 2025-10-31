@@ -19,7 +19,7 @@ describe('github issues', () => {
         return ws2.csv.readFile(TEST_CSV_FILE_NAME, options);
       })
       .then(ws2 => {
-        expect(ws2.getCell('A1').value).to.equal(HEBREW_TEST_STRING);
+        expect(ws2.getCell('A1').value).toBe(HEBREW_TEST_STRING);
       });
-  }).timeout(6000);
+  }, 6000);
 });

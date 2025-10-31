@@ -14,7 +14,7 @@ describe('github issues', () => {
       });
 
       // arriving here is success
-      expect(true).to.equal(true);
+      expect(true).toBe(true);
     });
 
     it('when loading an in memory buffer', async () => {
@@ -26,7 +26,7 @@ describe('github issues', () => {
       });
 
       // arriving here is success
-      expect(true).to.equal(true);
+      expect(true).toBe(true);
     });
   });
 });

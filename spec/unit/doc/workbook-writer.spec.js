@@ -11,6 +11,6 @@ describe('Workbook Writer', () => {
       stream,
     });
     wb.addWorksheet('first');
-    expect(wb.getWorksheet('w00t')).to.equal(undefined);
+    expect(wb.getWorksheet('w00t')).toBe(undefined);
   });
 });

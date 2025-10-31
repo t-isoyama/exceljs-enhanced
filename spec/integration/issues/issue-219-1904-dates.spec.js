@@ -8,10 +8,10 @@ describe('github issues', () => {
     it('Reading 1904.xlsx', () => {
       const wb = new ExcelJS.Workbook();
       return wb.xlsx.readFile('./spec/integration/data/1904.xlsx').then(() => {
-        expect(wb.properties.date1904).to.equal(true);
+        expect(wb.properties.date1904).toBe(true);
 
         const ws = wb.getWorksheet('Sheet1');
-        expect(ws.getCell('B4').value.toISOString()).to.equal(
+        expect(ws.getCell('B4').value.toISOString()).toBe(
           '1904-01-01T00:00:00.000Z'
         );
       });
@@ -28,10 +28,10 @@ describe('github issues', () => {
           return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
         })
         .then(wb2 => {
-          expect(wb2.properties.date1904).to.equal(true);
+          expect(wb2.properties.date1904).toBe(true);
 
           const ws2 = wb2.getWorksheet('Sheet1');
-          expect(ws2.getCell('B4').value.toISOString()).to.equal(
+          expect(ws2.getCell('B4').value.toISOString()).toBe(
             '1904-01-01T00:00:00.000Z'
           );
         });

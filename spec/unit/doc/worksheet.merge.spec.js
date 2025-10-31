@@ -17,15 +17,15 @@ describe('Worksheet', () => {
 
       ws.mergeCells('A1:B2');
 
-      expect(ws.getCell('A1').value).to.equal('A1');
-      expect(ws.getCell('B1').value).to.equal('A1');
-      expect(ws.getCell('A2').value).to.equal('A1');
-      expect(ws.getCell('B2').value).to.equal('A1');
+      expect(ws.getCell('A1').value).toBe('A1');
+      expect(ws.getCell('B1').value).toBe('A1');
+      expect(ws.getCell('A2').value).toBe('A1');
+      expect(ws.getCell('B2').value).toBe('A1');
 
-      expect(ws.getCell('A1').type).to.equal(Excel.ValueType.String);
-      expect(ws.getCell('B1').type).to.equal(Excel.ValueType.Merge);
-      expect(ws.getCell('A2').type).to.equal(Excel.ValueType.Merge);
-      expect(ws.getCell('B2').type).to.equal(Excel.ValueType.Merge);
+      expect(ws.getCell('A1').type).toBe(Excel.ValueType.String);
+      expect(ws.getCell('B1').type).toBe(Excel.ValueType.Merge);
+      expect(ws.getCell('A2').type).toBe(Excel.ValueType.Merge);
+      expect(ws.getCell('B2').type).toBe(Excel.ValueType.Merge);
     });
 
     it('does not allow overlapping merges', () => {
@@ -37,21 +37,21 @@ describe('Worksheet', () => {
       // intersect four corners
       expect(() => {
         ws.mergeCells('A1:B2');
-      }).to.throw(Error);
+      }).toThrow(Error);
       expect(() => {
         ws.mergeCells('C1:D2');
-      }).to.throw(Error);
+      }).toThrow(Error);
       expect(() => {
         ws.mergeCells('C3:D4');
-      }).to.throw(Error);
+      }).toThrow(Error);
       expect(() => {
         ws.mergeCells('A3:B4');
-      }).to.throw(Error);
+      }).toThrow(Error);
 
       // enclosing
       expect(() => {
         ws.mergeCells('A1:D4');
-      }).to.throw(Error);
+      }).toThrow(Error);
     });
 
     it('merges and unmerges', () => {
@@ -64,7 +64,7 @@ describe('Worksheet', () => {
           for (let j = d.left; j <= d.right; j++) {
             const cell = ws.getCell(i, j);
             const masterCell = master ? ws.getCell(master) : cell;
-            expect(cell.master.address).to.equal(masterCell.address);
+            expect(cell.master.address).toBe(masterCell.address);
           }
         }
       };
@@ -115,21 +115,21 @@ describe('Worksheet', () => {
       // intersect four corners
       expect(() => {
         ws.mergeCells('A1:B2');
-      }).to.throw(Error);
+      }).toThrow(Error);
       expect(() => {
         ws.mergeCells('C1:D2');
-      }).to.throw(Error);
+      }).toThrow(Error);
       expect(() => {
         ws.mergeCells('C3:D4');
-      }).to.throw(Error);
+      }).toThrow(Error);
       expect(() => {
         ws.mergeCells('A3:B4');
-      }).to.throw(Error);
+      }).toThrow(Error);
 
       // enclosing
       expect(() => {
         ws.mergeCells('A1:D4');
-      }).to.throw(Error);
+      }).toThrow(Error);
     });
 
     it('merges styles', () => {
@@ -148,67 +148,67 @@ describe('Worksheet', () => {
       // expecting styles to be copied (see worksheet spec)
       ws.mergeCells('B2:C3');
 
-      expect(ws.getCell('B2').font).to.deep.equal(
+      expect(ws.getCell('B2').font).toEqual(
         testUtils.styles.fonts.broadwayRedOutline20
       );
-      expect(ws.getCell('B2').border).to.deep.equal(
+      expect(ws.getCell('B2').border).toEqual(
         testUtils.styles.borders.doubleRed
       );
-      expect(ws.getCell('B2').fill).to.deep.equal(
+      expect(ws.getCell('B2').fill).toEqual(
         testUtils.styles.fills.blueWhiteHGrad
       );
-      expect(ws.getCell('B2').alignment).to.deep.equal(
+      expect(ws.getCell('B2').alignment).toEqual(
         testUtils.styles.namedAlignments.middleCentre
       );
-      expect(ws.getCell('B2').numFmt).to.deep.equal(
+      expect(ws.getCell('B2').numFmt).toEqual(
         testUtils.styles.numFmts.numFmt1
       );
 
-      expect(ws.getCell('B3').font).to.deep.equal(
+      expect(ws.getCell('B3').font).toEqual(
         testUtils.styles.fonts.broadwayRedOutline20
       );
-      expect(ws.getCell('B3').border).to.deep.equal(
+      expect(ws.getCell('B3').border).toEqual(
         testUtils.styles.borders.doubleRed
       );
-      expect(ws.getCell('B3').fill).to.deep.equal(
+      expect(ws.getCell('B3').fill).toEqual(
         testUtils.styles.fills.blueWhiteHGrad
       );
-      expect(ws.getCell('B3').alignment).to.deep.equal(
+      expect(ws.getCell('B3').alignment).toEqual(
         testUtils.styles.namedAlignments.middleCentre
       );
-      expect(ws.getCell('B3').numFmt).to.deep.equal(
+      expect(ws.getCell('B3').numFmt).toEqual(
         testUtils.styles.numFmts.numFmt1
       );
 
-      expect(ws.getCell('C2').font).to.deep.equal(
+      expect(ws.getCell('C2').font).toEqual(
         testUtils.styles.fonts.broadwayRedOutline20
       );
-      expect(ws.getCell('C2').border).to.deep.equal(
+      expect(ws.getCell('C2').border).toEqual(
         testUtils.styles.borders.doubleRed
       );
-      expect(ws.getCell('C2').fill).to.deep.equal(
+      expect(ws.getCell('C2').fill).toEqual(
         testUtils.styles.fills.blueWhiteHGrad
       );
-      expect(ws.getCell('C2').alignment).to.deep.equal(
+      expect(ws.getCell('C2').alignment).toEqual(
         testUtils.styles.namedAlignments.middleCentre
       );
-      expect(ws.getCell('C2').numFmt).to.deep.equal(
+      expect(ws.getCell('C2').numFmt).toEqual(
         testUtils.styles.numFmts.numFmt1
       );
 
-      expect(ws.getCell('C3').font).to.deep.equal(
+      expect(ws.getCell('C3').font).toEqual(
         testUtils.styles.fonts.broadwayRedOutline20
       );
-      expect(ws.getCell('C3').border).to.deep.equal(
+      expect(ws.getCell('C3').border).toEqual(
         testUtils.styles.borders.doubleRed
       );
-      expect(ws.getCell('C3').fill).to.deep.equal(
+      expect(ws.getCell('C3').fill).toEqual(
         testUtils.styles.fills.blueWhiteHGrad
       );
-      expect(ws.getCell('C3').alignment).to.deep.equal(
+      expect(ws.getCell('C3').alignment).toEqual(
         testUtils.styles.namedAlignments.middleCentre
       );
-      expect(ws.getCell('C3').numFmt).to.deep.equal(
+      expect(ws.getCell('C3').numFmt).toEqual(
         testUtils.styles.numFmts.numFmt1
       );
     });
@@ -241,8 +241,8 @@ describe('Worksheet', () => {
           nMergeVals += 1;
         }
       }
-      expect(nNumberVals).to.deep.equal(1);
-      expect(nMergeVals).to.deep.equal(3);
+      expect(nNumberVals).toEqual(1);
+      expect(nMergeVals).toEqual(3);
     });
   });
 });
