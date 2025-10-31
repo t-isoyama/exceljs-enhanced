@@ -30,8 +30,9 @@
   ],
   "scripts": {
     "test": "npm run test:full",
-    "test:full": "npm run build && npm run test:unit && npm run test:integration && npm run test:end-to-end",
-    "test:version": "npm run build && npm run test:unit && npm run test:integration && npm run test:end-to-end && npm run test:dist",
+    "test:full": "npm run build && npm run test:cleanup && npm run test:unit && npm run test:integration && npm run test:end-to-end",
+    "test:version": "npm run build && npm run test:cleanup && npm run test:unit && npm run test:integration && npm run test:end-to-end && npm run test:dist",
+    "test:cleanup": "rm -f spec/out/wb.test.xlsx test.xlsx",
     "test:unit": "vitest run spec/unit",
     "test:integration": "vitest run spec/integration",
     "test:end-to-end": "vitest run spec/end-to-end",

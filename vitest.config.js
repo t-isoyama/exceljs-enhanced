@@ -36,6 +36,8 @@ export default defineConfig({
     hookTimeout: 10000,
 
     // Parallel execution configuration
+    // Note: fileParallelism disabled to prevent test file interference (shared test files)
+    fileParallelism: false,
     maxConcurrency: 5,
     minWorkers: 1,
     maxWorkers: undefined, // Use all available CPUs
