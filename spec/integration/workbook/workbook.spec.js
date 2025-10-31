@@ -599,20 +599,20 @@ describe('Workbook', () => {
           check(ws2b, 'B7', 2, 'sheets');
 
           // two names
-          expect(ws2a.getCell('G1').names).to.have.members([
+          expect(ws2a.getCell('G1').names).toEqual(expect.arrayContaining([
             'thing1',
             'thing2',
-          ]);
+          ]));
 
           // once removed
-          expect(ws2a.getCell('G2').names).to.have.members(['twice']);
+          expect(ws2a.getCell('G2').names).toEqual(expect.arrayContaining(['twice']));
 
           // ranges
           function rangeCheck(name, members) {
             const ranges = wb2.definedNames.getRanges(name);
             expect(ranges.name).toBe(name);
             if (members.length) {
-              expect(ranges.ranges).to.have.members(members);
+              expect(ranges.ranges).toEqual(expect.arrayContaining(members));
             } else {
               expect(ranges.ranges.length).toBe(0);
             }
@@ -932,7 +932,7 @@ describe('Workbook', () => {
       throw new Error('should fail for given argument');
     } catch (e) {
       // JSZip error messages vary by version, just verify an error is thrown
-      expect(e).toBeTypeOf('error');
+      expect(e).toBeInstanceOf(Error);
       expect(e.message).toBeTypeOf('string');
       expect(e.message.length).toBeGreaterThan(0);
     }

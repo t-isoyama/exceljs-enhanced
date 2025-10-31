@@ -312,11 +312,11 @@ describe('Workbook', () => {
         expect(ws.getCell(`B${i}`).font).toEqual(
           testUtils.styles.fonts.comicSansUdB16
         );
-        expect(ws.getCell(`B${i}`).alignment).to.undefined();
+        expect(ws.getCell(`B${i}`).alignment).toBeUndefined();
         expect(ws.getCell(`C${i}`).fill).toEqual(
           testUtils.styles.fills.redDarkVertical
         );
-        expect(ws.getCell(`C${i}`).alignment).to.undefined();
+        expect(ws.getCell(`C${i}`).alignment).toBeUndefined();
       }
 
       expect(ws.getRow(1).numFmt).toBe(testUtils.styles.numFmts.numFmt1);

@@ -18,7 +18,7 @@
             <vt:lpstr>Sheet1</vt:lpstr>
         </vt:vector>
     </TitlesOfParts>
-    <Company/>
+    <Company></Company>
     <LinksUpToDate>false</LinksUpToDate>
     <SharedDoc>false</SharedDoc>
     <HyperlinksChanged>false</HyperlinksChanged>

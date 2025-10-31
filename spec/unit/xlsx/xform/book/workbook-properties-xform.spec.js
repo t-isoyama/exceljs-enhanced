@@ -12,7 +12,7 @@ const expectations = [
     },
     preparedModel: {},
     xml:
-      '<workbookPr defaultThemeVersion="164011" filterPrivacy="1"></workbookPr>',
+      '<workbookPr defaultThemeVersion="164011" filterPrivacy="1"/>',
     parsedModel: {},
     tests: ['render', 'renderIn'],
   },
@@ -23,7 +23,7 @@ const expectations = [
     },
     preparedModel: {date1904: true},
     xml:
-      '<workbookPr date1904="1" defaultThemeVersion="164011" filterPrivacy="1"></workbookPr>',
+      '<workbookPr date1904="1" defaultThemeVersion="164011" filterPrivacy="1"/>',
     parsedModel: {date1904: true},
     tests: ['render', 'renderIn', 'parse'],
   },

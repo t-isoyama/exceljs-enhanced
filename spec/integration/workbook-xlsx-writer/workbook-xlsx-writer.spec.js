@@ -622,7 +622,7 @@ describe('WorkbookWriter', () => {
 
       // verify that rules from generated file contain styles with valid numFmt
       cf2.rules.forEach(rule => {
-        expect(rule.style.numFmt).toBeDefined()();
+        expect(rule.style.numFmt).toBeDefined();
         expect(rule.style.numFmt.id).toBeTypeOf('number');
         expect(rule.style.numFmt.formatCode).toBeTypeOf('string');
       });

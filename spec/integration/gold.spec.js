@@ -19,7 +19,7 @@ describe('Gold Book', () => {
       expect(ws.getCell('B3').value).toBe(5);
       // const b4 = ws.getCell('B4').value;
       // console.log(typeof b4, b4);
-      expect(ws.getCell('B4').value).to.equalDate(
+      expect(ws.getCell('B4').value).toEqualDate(
         new Date('2016-05-17T00:00:00.000Z')
       );
       expect(ws.getCell('B5').value).toEqual({

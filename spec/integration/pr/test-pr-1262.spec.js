@@ -12,7 +12,7 @@ describe('github issues', () => {
       locked: true,
     };
 
-    expect(sheet.protect).toBeDefined()();
+    expect(sheet.protect).toBeDefined();
 
     sheet.protect('password', {
       spinCount: 1,
