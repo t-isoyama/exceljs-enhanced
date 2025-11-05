@@ -8,6 +8,12 @@
     "name": "Guyon Roche",
     "email": "guyon@live.com"
   },
+  "contributors": [
+    {
+      "name": "t-isoyama",
+      "url": "https://github.com/t-isoyama"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/t-isoyama/exceljs-enhanced.git"
@@ -24,7 +30,6 @@
     "excel.js",
     "LICENSE",
     "README.md",
-    "README_zh.md",
     "index.ts",
     "index.d.ts"
   ],
@@ -53,6 +58,7 @@
     "install-build": "npm install && npm run build",
     "preversion": "npm run clean && npm run build && npm run test:version",
     "postversion": "git push --no-verify && git push --tags --no-verify",
+    "prepublishOnly": "npm run test:version",
     "prepare": "husky"
   },
   "lint-staged": {
