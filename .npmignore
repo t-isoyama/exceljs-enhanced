@@ -1,0 +1,37 @@
+# Test files
+spec/
+test/
+coverage/
+
+# Build scripts
+scripts/
+
+# CI/CD and development tools
+.github/
+.husky/
+.claude/
+
+# Configuration files
+vitest.config.js
+tsconfig.json
+.eslintrc
+.eslintignore
+.prettier
+.prettierrc
+.prettierignore
+.browserslistrc
+.npmrc
+
+# Development documentation
+CLAUDE.md
+
+# Benchmark and test files
+benchmark.js
+
+# Temporary and generated files
+*.xlsx
+test.xlsx
+.DS_Store
+
+# Keep source maps for debugging
+# (source maps are intentionally NOT excluded)
