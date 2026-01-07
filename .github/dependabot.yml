@@ -1,0 +1,8 @@
+version: 2
+updates:
+  # npm (Node.js) のパッケージをチェック
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly" # チェック頻度（daily, weekly, monthly）
+    open-pull-requests-limit: 10 # 一度に開くPRの最大数
