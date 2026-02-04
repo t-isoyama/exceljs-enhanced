@@ -98,7 +98,7 @@
     "saxes": "^6.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
+    "@types/node": "^25.2.0",
     "@vitest/coverage-v8": "^4.0.5",
     "@vitest/ui": "^4.0.5",
     "axios": "^1.7.0",
